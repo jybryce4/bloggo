@@ -26,6 +26,9 @@ This section details each piece of The *Bloggo* Project and when it is expected 
   + Edit Posts
   + Drafts
   + Publish posts
+  + Add .jpg, .png, or .gif images to posts
+  + Add hyperlinks to posts
+  + Be able to embed YouTube videos in posts
 + Rebloggos
 + Upvoting/Downvoting posts
 + Flag posts for moderation
