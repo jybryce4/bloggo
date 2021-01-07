@@ -1,4 +1,5 @@
 using Bloggo.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace Bloggo.Services
     public class AccountService
     {
         private UserDatabaseService _userDatabaseService;
-        //private HttpHandler _httpHandler;
+        // private AlertService _alertService = new AlertService();
         public User User { get; private set; }
 
         public AccountService(UserDatabaseService userDatabaseService)
@@ -22,10 +23,12 @@ namespace Bloggo.Services
             if (VerifyPassword(model.Password, passwordHash))
             {
                 User = _userDatabaseService.GetUser(model.Username);
+                Console.WriteLine($"{User.Username} logged in.");
+                // _alertService.Success("Successfully logged in.");
             }
             else 
             {
-                
+
             }
             
         }

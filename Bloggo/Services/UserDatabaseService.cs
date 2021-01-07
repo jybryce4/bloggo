@@ -22,7 +22,7 @@ namespace Bloggo.Services
             connection.Open();
 
             // we need to check to make sure the user exists
-            string checkUser = $"SELECT count(*) FROM [dbo].[Users] WHERE UserName={username}";
+            string checkUser = $"SELECT count(*) FROM [dbo].[Users] WHERE UserName='{username}'";
             SqlCommand cmd = new SqlCommand(checkUser, connection);
             try {
                 int tmp = Convert.ToInt32(cmd.ExecuteScalar().ToString());
@@ -34,22 +34,27 @@ namespace Bloggo.Services
                 }
                 else 
                 {   
-                    User user = null;
-                    string selectUser = $"SELECT * FROM [dbo].[Users] WHERE UserName={username}";
-                    SqlCommand query = new SqlCommand(selectUser, connection);
-                    
-                    var userDataReader = query.ExecuteReader();
+                    User user = new User();
+                    string selectUser = $"SELECT * FROM [dbo].[Users] WHERE UserName='{username}'";
+                    SqlCommand sql = new SqlCommand(selectUser, connection);
                     
                     // reading the data back into the frontend
-                    user.Id = userDataReader.GetFieldValue<string>(0);
-                    user.Username = userDataReader.GetFieldValue<string>(1);
-                    user.PasswordHash = userDataReader.GetFieldValue<string>(2);
-                    user.FirstName = userDataReader.GetFieldValue<string>(3);
-                    user.LastName = userDataReader.GetFieldValue<string>(4);
-                    user.ProfileImageURL = userDataReader.GetFieldValue<string>(5);
-                    user.CoverImageURL = userDataReader.GetFieldValue<string>(6);
-                    user.Email = userDataReader.GetFieldValue<string>(7);
-                    user.Bio = userDataReader.GetFieldValue<string>(8);
+                    using (SqlDataReader reader = sql.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            user.Id = reader["UserID"].ToString();
+                            user.Username = reader["UserName"].ToString();
+                            user.PasswordHash = reader["PasswordHash"].ToString();
+                            user.FirstName = reader["FirstName"].ToString();
+                            user.LastName = reader["LastName"].ToString();
+                            user.ProfileImageURL = reader["ProfileImageURL"].ToString();
+                            user.CoverImageURL = reader["CoverImageURL"].ToString();
+                            user.Email = reader["Email"].ToString();
+                            user.Bio = reader["Bio"].ToString();
+                        }
+                    }
+
                     
                     connection.Close();
 
