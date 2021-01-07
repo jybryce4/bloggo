@@ -23,6 +23,10 @@ namespace Bloggo.Services
             {
                 User = _userDatabaseService.GetUser(model.Username);
             }
+            else 
+            {
+                
+            }
             
         }
 
