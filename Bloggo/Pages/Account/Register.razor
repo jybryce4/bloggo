@@ -51,8 +51,6 @@
     async Task RegisterUser()
     {
         await db.CreateRow(model);
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/account/register/thank-you");
     }
-    
-
 }

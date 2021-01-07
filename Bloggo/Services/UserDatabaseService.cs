@@ -13,6 +13,7 @@ namespace Bloggo.Services
         
         public UserDatabaseService() 
         {
+            // Replace BLOGGO_DB with the environment variable of your connection string
             connection = new SqlConnection(Environment.GetEnvironmentVariable("BLOGGO_DB"));
         }
 
