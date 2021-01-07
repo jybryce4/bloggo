@@ -17,41 +17,41 @@ namespace Bloggo.Services
             connection = new SqlConnection(Environment.GetEnvironmentVariable("BLOGGO_DB"));
         }
 
-        public async Task<User> GetEntry(string pk)
+        public User GetUser(string username)
         {
-            await connection.OpenAsync();
+            connection.Open();
 
             // we need to check to make sure the user exists
-            string checkUser = $"SELECT count(*) FROM [dbo].[Users] WHERE UserId={pk}";
+            string checkUser = $"SELECT count(*) FROM [dbo].[Users] WHERE UserName={username}";
             SqlCommand cmd = new SqlCommand(checkUser, connection);
             try {
                 int tmp = Convert.ToInt32(cmd.ExecuteScalar().ToString());
                 if (tmp != 1)
                 {
                     Console.WriteLine("Database error.");
-                    await connection.CloseAsync();
+                    connection.Close();
                     return default; // null
                 }
                 else 
                 {   
                     User user = null;
-                    string selectUser = $"SELECT * FROM [dbo].[Users] WHERE UserId={pk}";
+                    string selectUser = $"SELECT * FROM [dbo].[Users] WHERE UserName={username}";
                     SqlCommand query = new SqlCommand(selectUser, connection);
                     
-                    var userDataReader = await query.ExecuteReaderAsync();
+                    var userDataReader = query.ExecuteReader();
                     
                     // reading the data back into the frontend
-                    user.Id = (await userDataReader.GetFieldValueAsync<string>(0));
-                    user.Username = (await userDataReader.GetFieldValueAsync<string>(1));
-                    user.Password = (await userDataReader.GetFieldValueAsync<string>(2));
-                    user.FirstName = (await userDataReader.GetFieldValueAsync<string>(3));
-                    user.LastName = (await userDataReader.GetFieldValueAsync<string>(4));
-                    user.ProfileImageURL = (await userDataReader.GetFieldValueAsync<string>(5));
-                    user.CoverImageURL = (await userDataReader.GetFieldValueAsync<string>(6));
-                    user.Email = (await userDataReader.GetFieldValueAsync<string>(7));
-                    user.Bio = (await userDataReader.GetFieldValueAsync<string>(8));;
+                    user.Id = userDataReader.GetFieldValue<string>(0);
+                    user.Username = userDataReader.GetFieldValue<string>(1);
+                    user.PasswordHash = userDataReader.GetFieldValue<string>(2);
+                    user.FirstName = userDataReader.GetFieldValue<string>(3);
+                    user.LastName = userDataReader.GetFieldValue<string>(4);
+                    user.ProfileImageURL = userDataReader.GetFieldValue<string>(5);
+                    user.CoverImageURL = userDataReader.GetFieldValue<string>(6);
+                    user.Email = userDataReader.GetFieldValue<string>(7);
+                    user.Bio = userDataReader.GetFieldValue<string>(8);
                     
-                    await connection.CloseAsync();
+                    connection.Close();
 
                     return user;
 

@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Bloggo.Services
+﻿namespace Bloggo.Services
 {
     public class PasswordHasher
     {
         private string _passwordHash;
         public PasswordHasher(string password) => _passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
 
-        public bool VerifyPassword(string enteredPassword, string passwordHash)
-        {
-            return BCrypt.Net.BCrypt.Verify(enteredPassword, passwordHash);
-        }
-
+        // public bool VerifyPassword(string enteredPassword, string passwordHash)
+        // {
+        //     return BCrypt.Net.BCrypt.Verify(enteredPassword, passwordHash);
+        // }
         public string GetHash()
         {
             return _passwordHash;

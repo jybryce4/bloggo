@@ -46,10 +46,12 @@
 @code {
     private User model = new User();
     private UserDatabaseService db = new UserDatabaseService();
+
     private bool loading;
 
-    async Task RegisterUser()
+    async void RegisterUser()
     {
+        loading = false;
         await db.CreateRow(model);
         NavigationManager.NavigateTo("/account/register/thank-you");
     }
