@@ -53,6 +53,7 @@
     {
         loading = false;
         await db.CreateRow(model);
+        AccountService.loggedIn = true;
         NavigationManager.NavigateTo("/account/register/thank-you");
     }
 }

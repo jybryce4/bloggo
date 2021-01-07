@@ -2,7 +2,7 @@
 @inject NavigationManager NavigationManager
 
 <div class="card">
-    <h4 class="card-header">Login</h4>
+    <h4 class="card-header">Login To Bloggo</h4>
     <div class="card-body">
         <EditForm Model="@model" OnValidSubmit="LoginUser">
             <DataAnnotationsValidator />
@@ -42,6 +42,7 @@
         string password = model.Password;
 
         string passwordHash = db.GetUser(username).PasswordHash;
+        // string userID = db.GetUser(username).Id;
     
         AccountService accountService = new AccountService(db);
         
@@ -51,7 +52,7 @@
         try 
         {
             accountService.Login(model, passwordHash);
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo($"users/{username}/feed");
         }
         catch (Exception exception)
         {

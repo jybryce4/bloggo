@@ -8,8 +8,9 @@ namespace Bloggo.Services
     public class AccountService
     {
         private UserDatabaseService _userDatabaseService;
-        // private AlertService _alertService = new AlertService();
-        public User User { get; private set; }
+        
+        public static bool loggedIn = false;
+        public static User User { get; private set; }
 
         public AccountService(UserDatabaseService userDatabaseService)
         {
@@ -24,7 +25,7 @@ namespace Bloggo.Services
             {
                 User = _userDatabaseService.GetUser(model.Username);
                 Console.WriteLine($"{User.Username} logged in.");
-                // _alertService.Success("Successfully logged in.");
+                loggedIn = true;
             }
             else 
             {
@@ -33,9 +34,10 @@ namespace Bloggo.Services
             
         }
 
-        public void Logout()
+        public static void Logout()
         {
             User = null;
+            loggedIn = false;
         }
 
         private bool VerifyPassword(string enteredPassword, string passwordHash)

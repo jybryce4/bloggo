@@ -2,14 +2,38 @@
 
 <div class="page">
     <div class="main">
-        <div class="top-row px-4">
-            <a href="#">About</a>
-            <a href="account/login">Login</a>
-            <a href="account/register">Register</a>
-        </div>
-
+        @if (AccountService.loggedIn)
+        {
+            <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="navbar-nav">
+                <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
+                <NavLink href=@UserFeedUrl() class="nav-item nav-link">My Feed</NavLink>
+                <NavLink href=@ProfileUrl() class="nav-item nav-link">View Profile</NavLink>
+                <NavLink href=@EditProfileUrl() class="nav-item nav-link">Edit Profile</NavLink>
+                <NavLink href="account/logout" class="nav-item nav-link">Logout</NavLink>
+            </div>
+            </nav>
+        }
+        
         <div class="content px-4">
             @Body
         </div>
     </div>
 </div>
+
+@code {
+    public string UserFeedUrl()
+    {
+        return $"/users/{AccountService.User.Username}/feed";
+    }
+    public string EditProfileUrl() 
+    {
+        return $"/users/{AccountService.User.Username}/edit-profile";
+    }
+
+    public string ProfileUrl() 
+    {
+        return $"/users/{AccountService.User.Username}";
+    }
+    
+}

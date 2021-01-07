@@ -1,0 +1,12 @@
+@page "/users/{Username}/feed"
+@attribute [Authorize]
+
+<div class="container">
+    <h3 class="text-center">This will be the newsfeed.</h3>
+</div>
+
+@code {
+    [Parameter]
+    public string Username { get; set; }
+  
+}

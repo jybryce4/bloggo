@@ -1,0 +1,16 @@
+@page "/account/logout"
+@inject NavigationManager NavigationManager
+
+<div class="container">
+    <h3>Are you sure you want to log out?</h3>
+    <button class="btn btn-danger" @onclick="LogoutUser">Yes, log me out.</button>
+</div>
+
+@code {
+    void LogoutUser()
+    {
+        AccountService.Logout();
+        NavigationManager.NavigateTo("/");
+    }
+    
+}
