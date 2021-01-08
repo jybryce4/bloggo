@@ -4,8 +4,13 @@
     <div class="container">
         @if (!AccountService.loggedIn)
         {
-            <h1>Welcome to Bloggo!</h1>
-            <h4>Please <a href="account/login">Login</a> or <a href="account/register">Register a new Bloggo</a></h4>
+            <div class="card card-body text-center">
+                <h1>Welcome to Bloggo!</h1>
+                <h4>Please <a href="account/login">Login</a> or <a href="account/register">Register a new Bloggo</a></h4>
+                <hr>
+                <h6>If you're completely new, be sure to check out the <a href="/information/faq">FAQ</a></h6>
+            </div>
+            
         }
         @if (AccountService.loggedIn)
         {
