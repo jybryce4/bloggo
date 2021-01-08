@@ -5,35 +5,41 @@
         @if (AccountService.loggedIn)
         {
             <nav class="navbar navbar-expand navbar-dark bg-dark">
-            <div class="navbar-nav">
-                <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
-                <NavLink href=@UserFeedUrl() class="nav-item nav-link">My Feed</NavLink>
-                <NavLink href=@ProfileUrl() class="nav-item nav-link">View Profile</NavLink>
-                <NavLink href=@EditProfileUrl() class="nav-item nav-link">Edit Profile</NavLink>
-                <NavLink href="account/logout" class="nav-item nav-link">Logout</NavLink>
-            </div>
+                <div class="navbar-nav">
+                    <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
+                    <NavLink href=@UserFeedUrl() class="nav-item nav-link">My Feed</NavLink>
+                    <NavLink href=@ProfileUrl() class="nav-item nav-link">View Profile</NavLink>
+                    <NavLink href=@EditProfileUrl() class="nav-item nav-link">Edit Profile</NavLink>
+                    <NavLink href="account/logout" class="nav-item nav-link">Logout</NavLink>
+                </div>
             </nav>
         }
-        
+
         <div class="content px-4">
             @Body
         </div>
     </div>
 </div>
 
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">&copy; 2021 James Bryce</span> - <a href="/">Back to the Front Page</a>
+    </div>
+</footer>
+
 @code {
     public string UserFeedUrl()
     {
         return $"/users/{AccountService.User.Username}/feed";
     }
-    public string EditProfileUrl() 
+    public string EditProfileUrl()
     {
         return $"/users/{AccountService.User.Username}/edit-profile";
     }
 
-    public string ProfileUrl() 
+    public string ProfileUrl()
     {
         return $"/users/{AccountService.User.Username}";
     }
-    
+
 }
