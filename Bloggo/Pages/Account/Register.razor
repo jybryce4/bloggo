@@ -44,16 +44,18 @@
 </div>
 
 @code {
-    private User model = new User();
-    private UserDatabaseService db = new UserDatabaseService();
+    private Models.User model = new Models.User();
+    private static UserDatabaseService db = new UserDatabaseService();
+    // AccountService accountService = new AccountService(db);
 
     private bool loading;
 
     async void RegisterUser()
     {
         loading = false;
+
         await db.CreateRow(model);
-        AccountService.loggedIn = true;
+       
         NavigationManager.NavigateTo("/account/register/thank-you");
     }
 }

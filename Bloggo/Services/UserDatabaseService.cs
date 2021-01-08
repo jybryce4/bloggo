@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 namespace Bloggo.Services
 {
-
     public class UserDatabaseService
     {
         private SqlConnection connection;
