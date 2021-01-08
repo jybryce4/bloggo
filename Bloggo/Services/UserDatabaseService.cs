@@ -1,19 +1,26 @@
 using Microsoft.Data.SqlClient;
 using System;
 using System.Threading.Tasks;
-using Bloggo.Models;
 using System.Collections.Generic;
+using Bloggo.Models;
+using Bloggo.Helpers;
+using SettingsReader.Readers;
+
 
 namespace Bloggo.Services
 {
     public class UserDatabaseService
     {
         private SqlConnection connection;
+
+        // To do: make this more secure!!!!
+        private string connectionString = "Data Source=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;User Id=bloggodba@bloggodev;Password=Catruya#4961";
         
         public UserDatabaseService() 
         {
             // Replace BLOGGO_DB with the environment variable of your connection string
-            connection = new SqlConnection(Environment.GetEnvironmentVariable("BLOGGO_DB"));
+            // connection = new SqlConnection(Environment.GetEnvironmentVariable("BLOGGO_DB"));
+            connection = new SqlConnection(connectionString);
         }
 
         public User GetUser(string username)
