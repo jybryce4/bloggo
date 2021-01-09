@@ -2,6 +2,17 @@
 
 
 <main>
+    @if (!AccountService.loggedIn)
+    {
+        <nav class="navbar navbar-expand text-center">
+            <div class="navbar-nav">
+                <NavLink href="account/login" class="nav-item nav-link">Login</NavLink>
+                <NavLink href="account/register" class="nav-item nav-link">Register</NavLink>
+                <NavLink href="information/faq" class="nav-item nav-link">FAQ</NavLink>
+            </div>
+        </nav>
+    }
+
     @if (AccountService.loggedIn)
     {
         <nav class="navbar navbar-expand">

@@ -81,7 +81,7 @@ a, .btn-link {
 }
 
 .card {
-    border: 3px solid black;
+    border: 1px solid black;
 }
 
 .card-body {
@@ -106,7 +106,6 @@ a, .btn-link {
     background-color: whitesmoke;
     width: 100%;
     margin-bottom: 40px;
-    border: 1px solid black;
 }
 
 .post-header {
@@ -122,16 +121,26 @@ a, .btn-link {
 .post-footer {
     background-color: #cf8ed4d8;
     text-align: right;
-    padding: 5px;
 }
 
 .sidebar {
     position: fixed;
-    margin-top: 40px;
+    margin-top: 30px;
+    right: 60px;
 }
 
-.feed {
-    margin-top: 40px;
+.stick {
+    position: fixed;
+    margin-top: 30px;
+    width: 100%;
+    padding: 0;
+}
+
+.post-form {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    z-index: 5;
 }
 
 
