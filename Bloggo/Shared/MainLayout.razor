@@ -1,31 +1,28 @@
 @inherits LayoutComponentBase
 
-<div class="page">
-    <div class="main">
-        @if (AccountService.loggedIn)
-        {
-            <nav class="navbar navbar-expand navbar-dark bg-dark">
-                <div class="navbar-nav">
-                    <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
-                    <NavLink href=@UserFeedUrl() class="nav-item nav-link">My Feed</NavLink>
-                    <NavLink href=@ProfileUrl() class="nav-item nav-link">View Profile</NavLink>
-                    <NavLink href=@EditProfileUrl() class="nav-item nav-link">Edit Profile</NavLink>
-                    <NavLink href="account/logout" class="nav-item nav-link">Logout</NavLink>
-                </div>
-            </nav>
-        }
 
-        <div class="content px-4">
-            @Body
-        </div>
-    </div>
+<main>
+    @if (AccountService.loggedIn)
+    {
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="navbar-nav">
+                <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
+                <NavLink href=@UserFeedUrl() class="nav-item nav-link">My Feed</NavLink>
+                <NavLink href=@ProfileUrl() class="nav-item nav-link">View Profile</NavLink>
+                <NavLink href=@EditProfileUrl() class="nav-item nav-link">Edit Profile</NavLink>
+                <NavLink href="account/logout" class="nav-item nav-link">Logout</NavLink>
+            </div>
+        </nav>
+    }
+
+    @Body
+    
+</main>
+
+<div class="footer">
+    <h6 class="text-muted">&copy; 2021 - Bloggo LLC</h6>
 </div>
 
-<footer class="footer">
-    <div class="container text-center">
-        <span class="text-muted">&copy; 2021 James Bryce</span> 
-    </div>
-</footer>
 
 @code {
     public string UserFeedUrl()
