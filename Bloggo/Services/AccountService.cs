@@ -7,7 +7,7 @@ namespace Bloggo.Services
 {
     public class AccountService
     {
-        private UserDatabaseService _userDatabaseService;
+        private static UserDatabaseService _userDatabaseService;
         
         public static bool loggedIn = false;
         public static User User { get; private set; }
@@ -18,7 +18,7 @@ namespace Bloggo.Services
             //_httpHandler = new HttpHandler(_userDatabaseService);
         }
 
-        public void Login(Login model, string passwordHash)
+        public static void Login(Login model, string passwordHash)
         {
             //User = await _httpHandler.Post<User>("/account/authenticate", model);
             if (VerifyPassword(model.Password, passwordHash))
@@ -29,7 +29,7 @@ namespace Bloggo.Services
             }
             else 
             {
-
+                throw new Exception("Invalid login information");
             }
             
         }
@@ -40,7 +40,7 @@ namespace Bloggo.Services
             loggedIn = false;
         }
 
-        private bool VerifyPassword(string enteredPassword, string passwordHash)
+        private static bool VerifyPassword(string enteredPassword, string passwordHash)
         {
             return BCrypt.Net.BCrypt.Verify(enteredPassword, passwordHash);
         }

@@ -55,13 +55,14 @@
 
         try
         {
-            accountService.Login(model, passwordHash);
+            AccountService.Login(model, passwordHash);
             NavigationManager.NavigateTo($"users/{username}/feed");
         }
         catch (Exception exception)
         {
-            alertService.Error(exception.Message);
             loading = false;
+            Console.WriteLine(exception.Message);
+            NavigationManager.NavigateTo("account/invalid-login");
             StateHasChanged();
         }
     }
