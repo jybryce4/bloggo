@@ -81,10 +81,12 @@ a, .btn-link {
 
 .card-body {
     background-color: #4e0755d8;
+    border: 2px solid black;
 }
 
 .card-header {
     background-color: #a334add8;
+    border: 2px solid black;
 }
 
 .list-group-item {
@@ -98,14 +100,17 @@ a, .btn-link {
 #dev-notice {
     margin-top: 40px;
     color: #ac0000d0;
+    margin-bottom: 80px;
 }
 
 #dev-notice .card-header {
     background-color: #e9c5e971;
+    border: 2px solid black;
 }
 
 #dev-notice .card-body {
     background-color: #e9c5e971;
+    border: 2px solid black;
 }
 
 #welcome {
@@ -113,13 +118,19 @@ a, .btn-link {
 }
 
 #faq {
-    margin-top: 80px;
+    margin-top: 20px;
+    margin-bottom: 80px;
     width: 50%;
     height: 100%;
 }
 
 #faq .list-group-item {
     border: 2px solid black;
+}
+
+#about {
+    margin-top: 40px;
+    margin-bottom: 80px;
 }
 
 #register-form {
