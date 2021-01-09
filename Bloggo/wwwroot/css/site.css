@@ -74,9 +74,10 @@ a, .btn-link {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #b88bb260;
+    background-color: #38053aec;
     color: black;
     text-align: center;
+    z-index: 10;
 }
 
 .card {
@@ -122,6 +123,15 @@ a, .btn-link {
     background-color: #cf8ed4d8;
     text-align: right;
     padding: 5px;
+}
+
+.sidebar {
+    position: fixed;
+    margin-top: 40px;
+}
+
+.feed {
+    margin-top: 40px;
 }
 
 

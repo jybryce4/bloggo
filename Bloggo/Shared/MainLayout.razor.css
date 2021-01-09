@@ -3,6 +3,18 @@
     display: flex;
     flex-direction: column;
 }
+
+main {
+    padding: 0;
+}
+
+.navbar {
+    background-color: #2d0131e5;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
 /*
 .main {
     flex: 1 0 auto;
