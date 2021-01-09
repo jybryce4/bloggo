@@ -101,6 +101,30 @@ a, .btn-link {
     border: 1px solid black;
 }
 
+.post {
+    background-color: whitesmoke;
+    width: 100%;
+    margin-bottom: 40px;
+    border: 1px solid black;
+}
+
+.post-header {
+    background-color: #cf8ed4d8;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.post-body {
+    font-size: medium;
+}
+
+.post-footer {
+    background-color: #cf8ed4d8;
+    text-align: right;
+    padding: 5px;
+}
+
+
 #dev-img {
     width: 50%;
     height: 75%;

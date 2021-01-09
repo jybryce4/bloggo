@@ -14,21 +14,21 @@
                         Please <a href="account/login">Login</a> or <a href="account/register">Register</a>.
                     </h4>
                     <hr>
-                    <h5>If you're completely new, be sure to check out the <a href="/information/faq">FAQ</a></h5>
+                    <h5>If you're completely new, be sure to check out the <a href="/information/faq">FAQ</a>.</h5>
                 </div>
             </div>
 
             <div id="dev-notice" class="card">
                 <div class="card-header  text-center">
                     <strong>
-                    <h1>
-                        VERY IMPORTANT INFORMATION
-                    </h1>
+                        <h1>
+                            VERY IMPORTANT INFORMATION
+                        </h1>
                     </strong>
                 </div>
 
                 <div class="card-body text-danger">
-                    This website is under <strong>ACTIVE development</strong>. 
+                    This website is under <strong>ACTIVE development</strong>.
                     All services provided by this site are made available <strong>AS IS</strong>.
                     No guarantees can be made about the following:
                     <ol>
@@ -37,28 +37,172 @@
                         <li>The functionality of this site.</li>
                         <li>Ability to contact the developer.</li>
                     </ol>
-                    <p>The developer reserves the right to modify any data in the site's database including, but not limited to: 
-                    updating, deleting, moving, or otherwise accessing the data entered.</p> 
-                    <p>Personal data will not be used for anything but site development, however, <em><strong>caution is urged about using personally 
-                    identifying information</strong></em> when you register for a Bloggo account.</p>
+                    <p>The developer reserves the right to modify any data in the site's database including, but not limited
+                        to:
+                        updating, deleting, moving, or otherwise accessing the data entered.</p>
+                    <p>Personal data will not be used for anything but site development, however, <em><strong>caution is
+                                urged about using personally
+                                identifying information</strong></em> when you register for a Bloggo account.</p>
                     <h4>About bugs and missing features</h4>
                     <hr>
-                    <p>Bugs are all over the place right now as this is a <strong>DEVELOPMENT</strong> site.</p> 
-                    <p>However, you can report any you find (and are encouraged to do so) by <a href="mailto:jybryce4@gmail.com">emailing James</a>, the developer.</p>
+                    <p>Bugs are all over the place right now as this is a <strong>DEVELOPMENT</strong> site.</p>
+                    <p>However, you can report any you find (and are encouraged to do so) by <a
+                            href="mailto:jybryce4@gmail.com">emailing James</a>, the developer.</p>
                     <p>Additionally, some features and pages will be missing. They will be implemented in time, though.</p>
                     <hr>
                     <h4>More Information</h4>
                     <p>Please see the <a href="/information/faq">FAQ</a> for more general information.</p>
-                    <p>If you have any other questions that can't be answered by the site, please <a href="mailto:jybryce4@gmail.com">email James</a>.</p>
+                    <p>If you have any other questions that can't be answered by the site, please <a
+                            href="mailto:jybryce4@gmail.com">email James</a>.</p>
                     <hr>
-                    <h3 class="text-center"><em><strong>Use of this site is at your own risk!!</strong></em></h3> 
+                    <h3 class="text-center"><em><strong>Use of this site is at your own risk!!</strong></em></h3>
                 </div>
 
             </div>
         }
         @if (AccountService.loggedIn)
         {
-            <h1>Frontpage of Bloggo</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h1>Hottest Posts</h1>
+                            </div>
+                            <div class="card-body">
+                                <!--- Code to grab posts here (Examples shown)-->
+                                <div class="container-fluid">
+                                    <div class="post">
+                                        <div class="post-header">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h1><a href="#">Post Title</a></h1>
+                                                </div>
+
+                                                <div class="col">
+                                                    <h3>@@<a href="#">postauthor</a></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-body">
+                                            <div class="card-text">
+                                                <p>Test test test
+
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test</p>
+
+                                                <p>Test test test
+
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test</p>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="post-footer">
+                                            <p class="text-muted">Posted on January 8th, 2021 at 8:45PM</p>
+                                            <p class="text-muted"><em>Bloggo Web - USA</em></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="post">
+                                        <div class="post-header">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h1><a href="#">Post Title</a></h1>
+                                                </div>
+
+                                                <div class="col">
+                                                    <h3>@@<a href="#">postauthor</a></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-body">
+                                            <div class="card-text">
+                                                <p>Test test test
+
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test</p>
+
+                                                <p>Test test test
+
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test
+                                                    Test test test</p>
+
+                                            </div>
+                                        </div>
+                                        <div class="post-footer">
+                                            <p class="text-muted">Posted on January 8th, 2021 at 8:30PM</p>
+                                            <p class="text-muted"><em>Bloggo Web - USA</em></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h1>Trending Topics</h1>
+                            </div>
+                            <div class="card-body">
+                                <!--- Code to grab tags here (Example shown)-->
+                                <div class="card-text">
+                                    <ul class="list-group">
+                                        <a class="list-group-item list-group-item-action" href="#">#code</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#JavaScript</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#WebDevelopment</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#Frameworks</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#API</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#SQL</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#Python</a>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         }
 
     </div>
