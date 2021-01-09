@@ -16,14 +16,18 @@ main {
 
 
 a, .btn-link {
-    color: #f869e5;
+    color: #3c8cd6;
 }
 
 
 .btn-primary {
     color: #fff;
     background-color: #1ca032e5;
-    border-color: #3e025a;
+    border: 2px solid-black;
+}
+
+.btn-danger {
+    border: 2px solid black;
 }
 
 .content {
@@ -80,52 +84,50 @@ a, .btn-link {
 }
 
 .card-body {
-    background-color: #4e0755d8;
-    border: 2px solid black;
+    background-color: #e6b9e683;
+    border: 1px solid black;
 }
 
 .card-header {
     background-color: #a334add8;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 .list-group-item {
-    background-color: #e9c5e971;
+    background-color: #db82db71;
 }
 
 .form-group .form-control {
-    border: 2px solid black;
+    border: 1px solid black;
+}
+
+#dev-img {
+    width: 50%;
+    height: 75%;
 }
 
 #dev-notice {
     margin-top: 40px;
-    color: #ac0000d0;
     margin-bottom: 80px;
 }
 
 #dev-notice .card-header {
-    background-color: #e9c5e971;
     border: 2px solid black;
 }
 
-#dev-notice .card-body {
-    background-color: #e9c5e971;
-    border: 2px solid black;
-}
 
 #welcome {
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 #faq {
     margin-top: 20px;
-    margin-bottom: 80px;
-    width: 50%;
+    width: 100%;
     height: 100%;
 }
 
 #faq .list-group-item {
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 #about {
