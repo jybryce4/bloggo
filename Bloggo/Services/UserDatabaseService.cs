@@ -9,37 +9,37 @@ using SettingsReader.Readers;
 
 namespace Bloggo.Services
 {
-    public class UserDatabaseService
+    public static class UserDatabaseService
     {
-        private SqlConnection connection;
-
-        // To do: make this more secure!!!!
-        private string connectionString = "Data Source=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;User Id=bloggodba@bloggodev;Password=Catruya#4961";
         
-        public UserDatabaseService() 
-        {
-            // Replace BLOGGO_DB with the environment variable of your connection string
-            // connection = new SqlConnection(Environment.GetEnvironmentVariable("BLOGGO_DB"));
-            connection = new SqlConnection(connectionString);
-        }
+        // To do: make this more secure!!!!
+        private static string connectionString = "Data Source=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;User Id=bloggodba@bloggodev;Password=Catruya#4961";
+        
+        private static SqlConnection connection = new SqlConnection(connectionString);
+        // public UserDatabaseService() 
+        // {
+        //     // Replace BLOGGO_DB with the environment variable of your connection string
+        //     // connection = new SqlConnection(Environment.GetEnvironmentVariable("BLOGGO_DB"));
+        //     connection = new SqlConnection(connectionString);
+        // }
 
-        public User GetUser(string username)
+        public static User GetUser(string username)
         {
             connection.Open();
 
             // we need to check to make sure the user exists
-            string checkUser = $"SELECT count(*) FROM [dbo].[Users] WHERE UserName='{username}'";
-            SqlCommand cmd = new SqlCommand(checkUser, connection);
+            //string checkUser = $"SELECT count(*) FROM [dbo].[Users] WHERE UserName='{username}'";
+            // SqlCommand cmd = new SqlCommand(checkUser, connection);
             try {
-                int tmp = Convert.ToInt32(cmd.ExecuteScalar().ToString());
-                if (tmp != 1)
-                {
-                    Console.WriteLine("Database error.");
-                    connection.Close();
-                    return default; // null
-                }
-                else 
-                {   
+                // int tmp = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                // if (tmp != 1)
+                // {
+                //     Console.WriteLine("Database error.");
+                //     connection.Close();
+                //     return default; // null
+                // }
+                // else 
+                // {   
                     User user = new User();
                     string selectUser = $"SELECT * FROM [dbo].[Users] WHERE UserName='{username}'";
                     SqlCommand sql = new SqlCommand(selectUser, connection);
@@ -66,7 +66,7 @@ namespace Bloggo.Services
 
                     return user;
 
-                }
+                
             }
             catch (SqlException se)
             {
@@ -76,7 +76,7 @@ namespace Bloggo.Services
             return default;
         }
 
-        public async Task<IList<string>> GetAllRows()
+        public static async Task<IList<string>> GetAllRows()
         {
             IList<string> userList = null;
             string query = "SELECT * FROM [dbo].[Users]";
@@ -91,7 +91,7 @@ namespace Bloggo.Services
             return userList;
         }
 
-        public async Task CreateRow(User user)
+        public static async Task CreateRow(User user)
         {
             PasswordHasher pwh = new PasswordHasher(user.Password); // encrypt the password
 
@@ -109,7 +109,7 @@ namespace Bloggo.Services
             
         }
         
-        public async Task EditRow(string pk, string columnName, string value)
+        public static async Task EditRow(string pk, string columnName, string value)
         {
             string sql = $"UPDATE [dbo].[Users] set {columnName}='{value}' WHERE UserID={pk}";
             
@@ -122,7 +122,7 @@ namespace Bloggo.Services
 
         }
 
-        public async Task DeleteRow(string pk)
+        public static async Task DeleteRow(string pk)
         {
             string sql = $"DELETE [dbo].[Users] WHERE UserID={pk}";
 

@@ -40,15 +40,15 @@
     private void LoginUser()
     {
         loading = true;
-        UserDatabaseService db = new UserDatabaseService();
+        //UserDatabaseService db = new UserDatabaseService();
 
         string username = model.Username;
         string password = model.Password;
 
-        string passwordHash = db.GetUser(username).PasswordHash;
+        string passwordHash = UserDatabaseService.GetUser(username).PasswordHash;
         // string userID = db.GetUser(username).Id;
 
-        AccountService accountService = new AccountService(db);
+        //AccountService accountService = new AccountService(db);
 
         // reset Alerts on submit
         //alertService.Clear();

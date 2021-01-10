@@ -5,25 +5,25 @@ using System.Threading.Tasks;
 
 namespace Bloggo.Services
 {
-    public class AccountService
+    public static class AccountService
     {
-        private static UserDatabaseService _userDatabaseService;
+        // private static UserDatabaseService _userDatabaseService = new UserDatabaseService();
         
         public static bool loggedIn = false;
         public static User User { get; private set; }
 
-        public AccountService(UserDatabaseService userDatabaseService)
-        {
-            _userDatabaseService = userDatabaseService;
-            //_httpHandler = new HttpHandler(_userDatabaseService);
-        }
+        // public AccountService(UserDatabaseService userDatabaseService)
+        // {
+        //     _userDatabaseService = userDatabaseService;
+        //     //_httpHandler = new HttpHandler(_userDatabaseService);
+        // }
 
         public static void Login(Login model, string passwordHash)
         {
             //User = await _httpHandler.Post<User>("/account/authenticate", model);
             if (VerifyPassword(model.Password, passwordHash))
             {
-                User = _userDatabaseService.GetUser(model.Username);
+                User = UserDatabaseService.GetUser(model.Username);
                 Console.WriteLine($"{User.Username} logged in.");
                 loggedIn = true;
             }

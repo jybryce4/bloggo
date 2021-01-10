@@ -48,7 +48,7 @@
 
 @code {
     private Models.User model = new Models.User();
-    private static UserDatabaseService db = new UserDatabaseService();
+    // private static UserDatabaseService db = new UserDatabaseService();
     // AccountService accountService = new AccountService(db);
 
     private bool loading;
@@ -57,7 +57,7 @@
     {
         loading = false;
 
-        await db.CreateRow(model);
+        await UserDatabaseService.CreateRow(model);
 
         NavigationManager.NavigateTo("/account/register/thank-you");
     }

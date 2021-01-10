@@ -1,0 +1,50 @@
+@page "/users/{Username}"
+@attribute [Authorize]
+
+<div class="container">
+    <div class="row">
+        <!-- Replace my images with generic ones and use the database URL fields -->
+        <img src=@CoverImageURL() alt="profile cover image" class="cover-img rounded">
+        <img src=@ProfileImageURL() alt="profile picture" class="profile-img rounded rounded-circle">
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <h1 id="name">@AccountService.User.FirstName @AccountService.User.LastName</h1>
+            <h2>Test</h2>
+        </div>
+
+        <div class="col-8 text-right">
+            <h3>@@@AccountService.User.Username</h3>
+        </div>
+        
+    </div>
+</div>
+
+<div class="container">
+    <div class="post rounded">
+        <div class="post-body">
+            <h5>Sample text</h5>
+            <h5>Sample text</h5>
+            <h5>Sample text</h5>
+            <h5>Sample text</h5>
+            <h5>Sample text</h5>
+            <h5>Sample text</h5>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public string Username { get; set; }
+
+    string ProfileImageURL()
+    {
+        return AccountService.User.ProfileImageURL;
+    }   
+
+    string CoverImageURL()
+    {
+        return AccountService.User.CoverImageURL;
+    } 
+}
