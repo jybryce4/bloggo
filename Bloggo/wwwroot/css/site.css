@@ -2,7 +2,7 @@
 
 body {
     min-height: 100%;
-    background-color: #d195d171;
+    background-color: #27344196;
 }
 
 html, body {
@@ -78,7 +78,7 @@ a, .btn-link {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #38053aec;
+    background-color: #283747;
     color: black;
     text-align: center;
     z-index: 10;
@@ -89,17 +89,18 @@ a, .btn-link {
 }
 
 .card-body {
-    background-color: #e6b9e683;
+    background-color: whitesmoke;
     border: 1px solid black;
 }
 
 .card-header {
-    background-color: #a334add8;
+    background-color: #283747;
+    color: whitesmoke;
     border: 1px solid black;
 }
 
 .list-group-item {
-    background-color: #db82db71;
+    background-color: #28374796;
 }
 
 .form-group .form-control {
@@ -113,7 +114,7 @@ a, .btn-link {
 }
 
 .post-header {
-    background-color: #cf8ed4d8;
+    background-color: #283747;
     text-align: center;
     padding-top: 10px;
 }
@@ -123,7 +124,7 @@ a, .btn-link {
 }
 
 .post-footer {
-    background-color: #cf8ed4d8;
+    background-color: #6b747eaf;
     text-align: right;
 }
 

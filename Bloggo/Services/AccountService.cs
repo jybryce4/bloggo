@@ -21,7 +21,7 @@ namespace Bloggo.Services
         public static void Login(Login model, string passwordHash)
         {
             //User = await _httpHandler.Post<User>("/account/authenticate", model);
-            if (VerifyPassword(model.Password, passwordHash))
+            if (VerifyPassword(model.Password, passwordHash) && model != null)
             {
                 User = UserDatabaseService.GetUser(model.Username);
                 Console.WriteLine($"{User.Username} logged in.");
