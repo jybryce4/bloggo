@@ -4,8 +4,9 @@
 <main>
     @if (!AccountService.loggedIn)
     {
-        <nav class="navbar navbar-expand text-center">
+        <nav class="navbar navbar-expand bg-dark text-center">
             <div class="navbar-nav">
+                <NavLink href="/" class="nav-item nav-link">Home</NavLink>
                 <NavLink href="account/login" class="nav-item nav-link">Login</NavLink>
                 <NavLink href="account/register" class="nav-item nav-link">Register</NavLink>
                 <NavLink href="information/faq" class="nav-item nav-link">FAQ</NavLink>
@@ -15,7 +16,7 @@
 
     @if (AccountService.loggedIn)
     {
-        <nav class="navbar navbar-expand">
+        <nav class="navbar navbar-expand bg-dark">
             <div class="navbar-nav">
                 <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
                 <NavLink href=@UserFeedUrl() class="nav-item nav-link">My Feed</NavLink>
