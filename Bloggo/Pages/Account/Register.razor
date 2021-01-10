@@ -32,11 +32,11 @@
                     <InputText @bind-Value="model.Password" type="password" class="form-control" />
                     <ValidationMessage For="@(() => model.Password)" />
                 </div>
-                <button disabled="@loading" class="btn btn-primary">
-                    @if (loading)
+                <button class="btn btn-primary">
+                    @* @if (loading)
                     {
                         <span class="spinner-border spinner-border-sm mr-1"></span>
-                    }
+                    } *@
                     Register
                 </button>
                 <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
@@ -51,11 +51,11 @@
     // private static UserDatabaseService db = new UserDatabaseService();
     // AccountService accountService = new AccountService(db);
 
-    private bool loading;
+    //private bool loading;
 
     async void RegisterUser()
     {
-        loading = false;
+        //loading = false;
 
         await UserDatabaseService.CreateRow(model);
 

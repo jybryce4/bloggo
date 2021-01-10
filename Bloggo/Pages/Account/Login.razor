@@ -17,11 +17,11 @@
                     <InputText @bind-Value="model.Password" type="password" class="form-control" />
                     <ValidationMessage For="@(() => model.Password)" />
                 </div>
-                <button disabled="@loading" class="btn btn-primary">
-                    @if (loading)
+                <button class="btn btn-primary">
+                    @* @if (loading)
                     {
                         <span class="spinner-border spinner-border-sm mr-1"></span>
-                    }
+                    } *@
                     Login
                 </button>
                 <NavLink href="account/register" class="btn btn-link">Register</NavLink>
@@ -33,13 +33,13 @@
 
 
 @code {
-    private bool loading;
+    //private bool loading;
     private Models.Login model = new Models.Login();
     private AlertService alertService = new AlertService();
 
     private void LoginUser()
     {
-        loading = true;
+        //loading = true;
         //UserDatabaseService db = new UserDatabaseService();
 
         string username = model.Username;
@@ -60,7 +60,7 @@
         }
         catch (Exception exception)
         {
-            loading = false;
+            // loading = false;
             Console.WriteLine(exception.Message);
             NavigationManager.NavigateTo("account/invalid-login");
             StateHasChanged();
