@@ -8,6 +8,8 @@ namespace Bloggo.Models
 
         public string Title { get; set; }
 
+        public string Subtitle { get; set; }
+
         public string Content { get; set; }
 
         public string DatePosted { get; set; } // YYYY-MM-DD

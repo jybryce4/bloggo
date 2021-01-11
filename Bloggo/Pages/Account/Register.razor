@@ -59,8 +59,8 @@
     {
         //loading = false;
 
-        await UserDatabaseService.CreateRow(model);
-        await db.CreateRow(model);
+        UserDatabaseService.CreateRow(model);
+        db.CreateRow(model);
 
         NavigationManager.NavigateTo("/account/register/thank-you");
     }

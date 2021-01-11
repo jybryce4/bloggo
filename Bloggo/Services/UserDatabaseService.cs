@@ -87,7 +87,7 @@ namespace Bloggo.Services
         }
 
         // This creates a new user (registration)
-        public static async Task CreateRow(User user)
+        public static void CreateRow(User user)
         {
             PasswordHasher pwh = new PasswordHasher(user.Password); // encrypt the password
 
@@ -96,25 +96,25 @@ namespace Bloggo.Services
 
             SqlCommand cmd = new SqlCommand(sql, connection);
 
-            await connection.OpenAsync();
+           connection.Open();
 
-            await cmd.ExecuteNonQueryAsync();
+            cmd.ExecuteNonQuery();
             
-            await cmd.DisposeAsync();
-            await connection.CloseAsync();
+            cmd.Dispose();
+            connection.Close();
             
         }
         
-        public static async Task EditRow(string key, string columnName, string value)
+        public static void EditRow(string key, string columnName, string value)
         {
             string sql = $"UPDATE [dbo].[Users] SET {columnName}='{value}' WHERE UserName={key}";
             
             SqlCommand cmd = new SqlCommand(sql, connection);
 
-            await cmd.ExecuteNonQueryAsync();
+            cmd.ExecuteNonQuery();
             
-            await cmd.DisposeAsync();
-            await connection.CloseAsync();
+            cmd.Dispose();
+            connection.Close();
 
         }
 

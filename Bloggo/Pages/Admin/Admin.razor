@@ -1,0 +1,52 @@
+@page "/admin"
+<div class="container">
+@if (AccountService.User.Username != "jybryce")
+{
+    <h1 class="text-danger">YOU ARE NOT ALLOWED TO ACCESS THIS PAGE</h1>
+}
+
+@if (AccountService.User.Username == "jybryce")
+{
+    <table class="table">
+        <thead>
+            <th scope="col">id#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">First name</th>
+            <th scope="col">Followers</th>
+            <th scope="col">Coins</th>
+        </thead>
+        <tbody>
+        @foreach (var profile in ProfileList())
+        {
+            <tr>
+                <th scope="row">@profile.ProfileID.ToString()</th>
+                <td>@profile.Username.ToString()</td>
+                <td>@profile.LastName.ToString()</td>
+                <td>@profile.FirstName.ToString()</td>
+                <td>@profile.NumFollowers.ToString()</td>
+                <td>@profile.Coins.ToString()</td>
+            </tr>
+        }     
+        </tbody>
+    </table>
+}
+
+ </div>
+
+@code {
+    private static ProfileDatabaseService db = new ProfileDatabaseService();
+    IList<Profile> ProfileList()
+    {
+        db.OpenConnection();
+
+        IList<Profile> profileList = db.GetAllRows();
+
+        db.CloseConnection();
+
+        return profileList;
+    }
+
+    
+
+}

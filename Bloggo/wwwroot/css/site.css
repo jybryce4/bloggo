@@ -120,7 +120,6 @@ a, .btn-link {
 .post-header {
     background-color: #283747;
     padding-top: 10px;
-    border-bottom-left-radius: 60%;
     margin: auto;
 }
 
@@ -178,6 +177,7 @@ a, .btn-link {
     border: 2px solid black;
     position: absolute;
     margin-top: 150px;
+    margin-left: 20px;
 }
 
 .post-img {
