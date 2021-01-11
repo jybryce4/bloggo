@@ -11,7 +11,7 @@ namespace Bloggo.Services
     {
         
         // To do: make this more secure!!!!
-        private static string connectionString = "Data Source=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;User Id=bloggodba@bloggodev;Password=Catruya#4961";
+        private static string connectionString = "Server=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;Persist Security Info=False;User ID=bloggodba;Password=Sunanoken@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         
         private static SqlConnection connection = new SqlConnection(connectionString);
         // public UserDatabaseService() 
