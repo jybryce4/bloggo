@@ -9,7 +9,6 @@ CREATE TABLE [dbo].[Users]
     PasswordHash NVARCHAR(200) NOT NULL,
     FirstName NVARCHAR(100) NOT NULL,
     LastName NVARCHAR(100) NOT NULL,
-    Birthday DATE NOT NULL, -- YYYY-MM-DD
     Email NVARCHAR(60) NOT NULL,
     CONSTRAINT PK_Users PRIMARY KEY (UserID, Username)
 );
@@ -19,13 +18,26 @@ CREATE TABLE [dbo].[Profiles]
 (
     ProfileID BIGINT NOT NULL IDENTITY,
     UserName NVARCHAR(30) NOT NULL UNIQUE,
+    FirstName NVARCHAR(100) NOT NULL,
+    LastName NVARCHAR(100) NOT NULL,
     ProfileURL NVARCHAR(100) NOT NULL UNIQUE,
     ProfileImageURL NVARCHAR(200),
     CoverImageURL NVARCHAR(200),
     UserBio NVARCHAR(4000),
-    Website NVARCHAR(100)
+    Website NVARCHAR(100),
+    NumFollowers BIGINT,
+    Coins BIGINT,
     CONSTRAINT FK_UserName_Profiles FOREIGN KEY (UserName) REFERENCES dbo.Users (UserName)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT PK_Profiles PRIMARY KEY (ProfileID)
 );
+
+-- -- LoggedInUsers stores users who are currently logged into the site
+-- CREATE TABLE LoggedInUsers
+-- (
+--     -- TO DO
+-- );
 
 
 

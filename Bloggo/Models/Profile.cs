@@ -6,6 +6,10 @@ namespace Bloggo.Models
 
         public string Username { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public string ProfileURL { get; set; }
 
         public string ProfileImageURL { get; set; }
@@ -15,5 +19,9 @@ namespace Bloggo.Models
         public string UserBio { get; set; }
 
         public string Website { get; set; }
+
+        public string NumFollowers { get; set; }
+
+        public string Coins { get; set; }
     }
 }

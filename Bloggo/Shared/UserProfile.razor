@@ -1,18 +1,18 @@
-@page "/users/{Username}"
+@page "/users/@profile.Username"
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <!-- Replace my images with generic ones and use the database URL fields -->
-        <img src="img/blank_cover.jpg" alt="profile cover image" class="cover-img rounded">
-        <img src="img/blank_profile.jpg" alt="profile picture" class="profile-img rounded rounded-circle">
+        <img src=@profile.CoverImageURL alt="profile cover image" class="cover-img rounded">
+        <img src=@profile.ProfileImageURL alt="profile picture" class="profile-img rounded rounded-circle">
     </div>
     <div class="row">
         <div class="col text-center">
-            <h1 id="name">@AccountService.User.FirstName @AccountService.User.LastName</h1>
+            <h1 id="name">@profile.FirstName @profile.LastName</h1>
         </div>
 
         <div class="col-8 text-right">
-            <h3>@@@Username</h3>
+            <h3>@@@profile.Username</h3>
         </div>
 
     </div>
@@ -32,9 +32,10 @@
                             <h3 class="post-title"><em>Post subtitle - a test design for posts</em></h3>
                         </div>
 
-                        <div class="col text-right">
-                            <img src=@ProfileImageURL() alt="user's profile image" class="post-img rounded rounded-circle">
-                            <h3 class="post-author"><a href="/users/{Username}">@@@AccountService.User.Username</a></h3>
+                        <div class="col">
+                            <img src=@profile.ProfileImageURL alt="user's profile image"
+                                class="post-img rounded rounded-circle">
+                            <h3 class="post-author"><a href=@ProfileUrl()>@@@profile.Username</a></h3>
                         </div>
                     </div>
                 </div>
@@ -98,8 +99,9 @@
                     <div class="card-title">
                         <h3>About Me</h3>
                     </div>
-                    <div class="card-body">
-                        
+                    <hr>
+                    <div class="card-text">
+                        <p>@profile.UserBio</p>
                     </div>
                 </div>
             </div>
@@ -109,8 +111,9 @@
                     <div class="card-title">
                         <h3>My Website</h3>
                     </div>
-                    <div class="card-body">
-                        <!-- To do -->
+                    <hr>
+                    <div class="card-text">
+                        <p>@profile.Website</p>
                     </div>
                 </div>
             </div>
@@ -120,7 +123,7 @@
                     <div class="card-title">
                         <h3>Users I follow</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-text">
                         <!-- To do -->
                     </div>
                 </div>
@@ -131,7 +134,7 @@
                     <div class="card-title">
                         <h3>Tags I follow</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-text">
                         <!-- To do -->
                     </div>
                 </div>
@@ -143,16 +146,23 @@
 
 
 @code {
-    [Parameter]
-    public string Username { get; set; }
+    private static ProfileDatabaseService db = new ProfileDatabaseService();
 
-    string ProfileImageURL()
+    public Models.Profile profile = db.GetProfile(AccountService.User.Username);
+
+
+    public string ProfileUrl()
     {
-        return "";
+        return profile.ProfileURL;
     }
 
-    string CoverImageURL()
+    public string ProfileImageURL()
     {
-        return "";
+        return profile.ProfileImageURL;
+    }
+
+    public string CoverImageURL()
+    {
+        return profile.CoverImageURL;
     }
 }

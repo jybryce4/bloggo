@@ -48,6 +48,8 @@
 
 @code {
     private Models.User model = new Models.User();
+
+    private ProfileDatabaseService db = new ProfileDatabaseService();
     // private static UserDatabaseService db = new UserDatabaseService();
     // AccountService accountService = new AccountService(db);
 
@@ -58,6 +60,7 @@
         //loading = false;
 
         await UserDatabaseService.CreateRow(model);
+        await db.CreateRow(model);
 
         NavigationManager.NavigateTo("/account/register/thank-you");
     }

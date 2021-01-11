@@ -130,7 +130,7 @@ a, .btn-link {
 }
 
 .post-author {
-    margin-right: 35px;
+    margin-left: 100px;
 }
 
 .post-body {
@@ -183,7 +183,7 @@ a, .btn-link {
 .post-img {
     max-height: 150px;
     max-width: 150px;
-    margin-right: 30px;
+    margin-left: 100px;
 }
 
 #name {

@@ -3,8 +3,6 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Bloggo.Models;
-using Bloggo.Helpers;
-using SettingsReader.Readers;
 
 
 namespace Bloggo.Services
@@ -54,7 +52,6 @@ namespace Bloggo.Services
                             user.PasswordHash = reader["PasswordHash"].ToString();
                             user.FirstName = reader["FirstName"].ToString();
                             user.LastName = reader["LastName"].ToString();
-                            user.Birthday = reader["Birthday"].ToString();
                             user.Email = reader["Email"].ToString();
                         }
                     }
@@ -108,9 +105,9 @@ namespace Bloggo.Services
             
         }
         
-        public static async Task EditRow(string pk, string columnName, string value)
+        public static async Task EditRow(string key, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[Users] set {columnName}='{value}' WHERE UserName={pk}";
+            string sql = $"UPDATE [dbo].[Users] SET {columnName}='{value}' WHERE UserName={key}";
             
             SqlCommand cmd = new SqlCommand(sql, connection);
 
@@ -121,17 +118,17 @@ namespace Bloggo.Services
 
         }
 
-        public static async Task DeleteRow(string pk)
-        {
-            string sql = $"DELETE [dbo].[Users] WHERE UserID={pk}";
+        // public static async Task DeleteRow(string pk)
+        // {
+        //     string sql = $"DELETE [dbo].[Users] WHERE UserID={pk}";
 
-            SqlCommand cmd = new SqlCommand(sql, connection);
+        //     SqlCommand cmd = new SqlCommand(sql, connection);
 
-            await cmd.ExecuteNonQueryAsync();
+        //     await cmd.ExecuteNonQueryAsync();
 
-            await cmd.DisposeAsync();
-            await connection.CloseAsync();
-        }
+        //     await cmd.DisposeAsync();
+        //     await connection.CloseAsync();
+        // }
         
     }
 }
