@@ -95,8 +95,8 @@ namespace Bloggo.Services
         {
             PasswordHasher pwh = new PasswordHasher(user.Password); // encrypt the password
 
-            string sql = "INSERT INTO [dbo].[Users] ([UserName], [PasswordHash], [FirstName], [LastName], [Email])" 
-                        + $"VALUES ('{user.Username}', '{pwh.GetHash()}', '{user.FirstName}', '{user.LastName}', '{user.Email}')";
+            string sql = "INSERT INTO [dbo].[Users] ([UserName], [PasswordHash], [FirstName], [LastName], [ProfileImageURL], [Email])" 
+                        + $"VALUES ('{user.Username}', '{pwh.GetHash()}', '{user.FirstName}', '{user.LastName}', 'img/blank_profile.jpg', '{user.Email}')";
 
             SqlCommand cmd = new SqlCommand(sql, connection);
 
