@@ -1,11 +1,11 @@
-@page "/account/register"
+@page "/admin/users/create"
 @inject NavigationManager NavigationManager
 
-<div id="register-form" class="container container-fluid">
-    <div class="card">
-        <h4 class="card-header">Register</h4>
+<div class="container">
+    <div id="admin-user-form" class="card">
+        <h4 class="card-header">Create a New User</h4>
         <div class="card-body">
-            <EditForm Model="@model" OnValidSubmit="RegisterUser">
+            <EditForm Model="@model" OnValidSubmit="MakeUser">
                 <DataAnnotationsValidator />
                 <div class="form-group">
                     <label>First Name</label>
@@ -33,13 +33,9 @@
                     <ValidationMessage For="@(() => model.Password)" />
                 </div>
                 <button class="btn btn-primary">
-                    @* @if (loading)
-                    {
-                        <span class="spinner-border spinner-border-sm mr-1"></span>
-                    } *@
-                    Register
+                    Create New User
                 </button>
-                <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
+                <NavLink href="/admin" class="btn btn-link">Cancel</NavLink>
             </EditForm>
         </div>
     </div>
@@ -48,20 +44,12 @@
 
 @code {
     private Models.User model = new Models.User();
-
     private ProfileDatabaseService db = new ProfileDatabaseService();
-    // private static UserDatabaseService db = new UserDatabaseService();
-    // AccountService accountService = new AccountService(db);
 
-    //private bool loading;
-
-    void RegisterUser()
+    void MakeUser()
     {
-        //loading = false;
-
         UserDatabaseService.CreateRow(model);
         db.CreateRow(model);
-
-        NavigationManager.NavigateTo("/account/register/thank-you");
+        NavigationManager.NavigateTo("/admin");
     }
 }
