@@ -1,1 +1,1 @@
-SELECT * FROM [dbo].[Profiles];
+SELECT * FROM [dbo].[Profile];

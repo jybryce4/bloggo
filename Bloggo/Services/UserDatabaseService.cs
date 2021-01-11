@@ -39,7 +39,7 @@ namespace Bloggo.Services
                 // else 
                 // {   
                     User user = new User();
-                    string selectUser = $"SELECT * FROM [dbo].[Users] WHERE UserName='{username}'";
+                    string selectUser = $"SELECT * FROM [dbo].[User] WHERE UserName='{username}'";
                     SqlCommand sql = new SqlCommand(selectUser, connection);
                     
                     // reading the data back into the frontend
@@ -47,7 +47,6 @@ namespace Bloggo.Services
                     {
                         while (reader.Read())
                         {
-                            user.Id = reader["UserID"].ToString();
                             user.Username = reader["UserName"].ToString();
                             user.PasswordHash = reader["PasswordHash"].ToString();
                             user.FirstName = reader["FirstName"].ToString();
@@ -74,7 +73,7 @@ namespace Bloggo.Services
         public static async Task<IList<string>> GetAllRows()
         {
             IList<string> userList = null;
-            string query = "SELECT * FROM [dbo].[Users]";
+            string query = "SELECT * FROM [dbo].[User]";
             SqlCommand cmd = new SqlCommand(query, connection);
             var sqlOutput = await cmd.ExecuteReaderAsync();
             
@@ -91,7 +90,7 @@ namespace Bloggo.Services
         {
             PasswordHasher pwh = new PasswordHasher(user.Password); // encrypt the password
 
-            string sql = "INSERT INTO [dbo].[Users] ([UserName], [PasswordHash], [FirstName], [LastName], [Email])" 
+            string sql = "INSERT INTO [dbo].[User] ([UserName], [PasswordHash], [FirstName], [LastName], [Email])" 
                         + $"VALUES ('{user.Username}', '{pwh.GetHash()}', '{user.FirstName}', '{user.LastName}', '{user.Email}')";
 
             SqlCommand cmd = new SqlCommand(sql, connection);
@@ -107,7 +106,7 @@ namespace Bloggo.Services
         
         public static void EditRow(string key, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[Users] SET {columnName}='{value}' WHERE UserName={key}";
+            string sql = $"UPDATE [dbo].[User] SET {columnName}='{value}' WHERE UserName={key}";
             
             SqlCommand cmd = new SqlCommand(sql, connection);
 

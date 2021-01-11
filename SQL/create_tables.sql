@@ -2,7 +2,7 @@
 --------------------------------------------------------------------------------------------
 
 -- Users table stores data core to the user for registration/login and credential retrieval
-CREATE TABLE [dbo].[Users] 
+CREATE TABLE [dbo].[User] 
 (
     UserName NVARCHAR(30) NOT NULL UNIQUE,
     PasswordHash NVARCHAR(200) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[Users]
 );
 
 -- Profiles table stores data for generating profile pages
-CREATE TABLE [dbo].[Profiles]
+CREATE TABLE [dbo].[Profile]
 (
     ProfileID BIGINT NOT NULL IDENTITY,
     UserName NVARCHAR(30) NOT NULL UNIQUE,
@@ -26,7 +26,7 @@ CREATE TABLE [dbo].[Profiles]
     Website NVARCHAR(100),
     NumFollowers BIGINT,
     Coins BIGINT,
-    CONSTRAINT FK_UserName_Profiles FOREIGN KEY (UserName) REFERENCES dbo.Users (UserName)
+    CONSTRAINT FK_UserName_Profiles FOREIGN KEY (UserName) REFERENCES [dbo].[User] (UserName)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
     CONSTRAINT PK_Profiles PRIMARY KEY (ProfileID)
@@ -37,33 +37,31 @@ CREATE TABLE [dbo].[Profiles]
 --------------------------------------------------------------------------------------------------
 
 -- Bridge entity for Profiles and Posts
-CREATE TABLE [dbo].[UserPosts]
+CREATE TABLE [dbo].[UserPost]
 (
     UserPostID BIGINT NOT NULL IDENTITY PRIMARY KEY,
     PostID BIGINT NOT NULL,
     UserName NVARCHAR(30) NOT NULL,
-    CONSTRAINT FK_UserNameID_UserPosts FOREIGN KEY (UserName) REFERENCES dbo.Profiles (UserName)
+    CONSTRAINT FK_UserName_UserPosts FOREIGN KEY (UserName) REFERENCES [dbo].[Profile] (UserName)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
 -- Definition for how Posts are stored on the server
-CREATE TABLE [dbo].[Posts]
+CREATE TABLE [dbo].[Post]
 (
     PostID BIGINT NOT NULL IDENTITY PRIMARY KEY,
-    UserPostID BIGINT NOT NULL UNIQUE,
     Title NVARCHAR(60),
     Subtitle NVARCHAR(60),
     Content NVARCHAR(MAX) NOT NULL,
     DatePosted DATE,
-    CONSTRAINT FK_UserPostID_Posts FOREIGN KEY (UserPostID) REFERENCES dbo.UserPosts (UserPostID)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
+    Reblogs BIGINT,
+    Upvotes BIGINT
 );
 
 -- Adding FK constraint
-ALTER TABLE [dbo].[UserPosts]
-ADD CONSTRAINT FK_PostID_UserPosts FOREIGN KEY (PostID) REFERENCES dbo.Posts (PostID)
+ALTER TABLE [dbo].[UserPost]
+ADD CONSTRAINT FK_PostID_UserPosts FOREIGN KEY (PostID) REFERENCES [dbo].[Post] (PostID)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 

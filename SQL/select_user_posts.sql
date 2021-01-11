@@ -1,1 +1,1 @@
-SELECT * FROM [dbo].[UserPosts];
+SELECT * FROM [dbo].[UserPost];

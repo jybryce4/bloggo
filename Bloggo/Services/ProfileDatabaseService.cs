@@ -33,7 +33,7 @@ namespace Bloggo.Services
 
             Profile profile = new Profile();
             string selectProfile =
-                $"SELECT * FROM [dbo].[Profiles] WHERE UserName='{username}'";
+                $"SELECT * FROM [dbo].[Profile] WHERE UserName='{username}'";
             SqlCommand sql = new SqlCommand(selectProfile, connection);
 
             // reading the data back into the frontend
@@ -66,7 +66,7 @@ namespace Bloggo.Services
 
             IList<Profile> profileList = new List<Profile>();
            
-            string query = "SELECT * FROM [dbo].[Profiles]";
+            string query = "SELECT * FROM [dbo].[Profile]";
             SqlCommand cmd = new SqlCommand(query, connection);
             //var reader = cmd.ExecuteReader();
             
@@ -105,7 +105,7 @@ namespace Bloggo.Services
         {
             //connection.Open();
 
-            string sql = "INSERT INTO [dbo].[Profiles] ([UserName], [FirstName], [LastName], [ProfileURL], [ProfileImageURL], [CoverImageURL], [UserBio], [Website], [NumFollowers], [Coins])" 
+            string sql = "INSERT INTO [dbo].[Profile] ([UserName], [FirstName], [LastName], [ProfileURL], [ProfileImageURL], [CoverImageURL], [UserBio], [Website], [NumFollowers], [Coins])" 
                         + $"VALUES ('{user.Username}', '{user.FirstName}', '{user.LastName}', 'users/{user.Username}', 'img/blank_profile.jpg', 'img/blank_cover.jpg', 'This person might be shy (no about me found!)', '<no website given>', 0, 0)";
 
             SqlCommand cmd = new SqlCommand(sql, connection);
@@ -120,7 +120,7 @@ namespace Bloggo.Services
 
         public void EditRow(string key, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[Profiles] SET {columnName}='{value}' WHERE UserName={key}";
+            string sql = $"UPDATE [dbo].[Profile] SET {columnName}='{value}' WHERE UserName={key}";
             
             SqlCommand cmd = new SqlCommand(sql, connection);
 

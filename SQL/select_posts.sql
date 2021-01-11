@@ -1,1 +1,1 @@
-SELECT * FROM dbo.Posts;
+SELECT * FROM dbo.Post;

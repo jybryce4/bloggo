@@ -1,10 +1,13 @@
-ALTER TABLE [dbo].[Posts]
-DROP CONSTRAINT FK_UserName_Users;
-DROP TABLE [dbo.Posts];
+ALTER TABLE [dbo].[UserPost]
+DROP CONSTRAINT FK_UserName_UserPosts;
 
-ALTER TABLE [dbo].[Profiles]
+DROP TABLE [dbo].[UserPost];
+
+DROP TABLE [dbo].[Post];
+
+ALTER TABLE [dbo].[Profile]
 DROP CONSTRAINT FK_UserName_Profiles;
 
-DROP TABLE [dbo].[Profiles];
+DROP TABLE [dbo].[Profile];
 
-DROP TABLE [dbo].[Users];
+DROP TABLE [dbo].[User];
