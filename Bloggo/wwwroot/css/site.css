@@ -2,7 +2,7 @@
 
 body {
     min-height: 100%;
-    background-color: #27344196;
+    background-color: #c2cbd496;
 }
 
 html, body {
@@ -23,6 +23,9 @@ a, .btn-link {
     border: 2px solid black;
 }
 
+.btn-dark {
+    border: 2px solid black;
+}
 
 .btn-primary {
     color: #fff;
@@ -78,7 +81,7 @@ a, .btn-link {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #283747;
+    /* background-color: #283747; */
     color: black;
     text-align: center;
     z-index: 10;
