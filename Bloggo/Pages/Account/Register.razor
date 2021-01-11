@@ -57,9 +57,12 @@
 
     void RegisterUser()
     {
+        UserDatabaseService.OpenConnection();
         UserDatabaseService.CreateRow(model);
-        
+
         db.CreateRow(model);
+
+        UserDatabaseService.CloseConnection();
         db.CloseConnection();
 
         NavigationManager.NavigateTo("/account/register/thank-you");
