@@ -231,6 +231,11 @@ a, .btn-link {
     height: 100%;
 }
 
+#register-thanks {
+    margin: 10% auto;
+    width: 25%;
+}
+
 #login-form {
     margin-top: 80px;
     width: 50%;

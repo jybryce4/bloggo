@@ -1,18 +1,18 @@
-@page "/users/@profile.Username"
+@page "/users/{Username}"
 
 <div class="container-fluid">
     <div class="row">
         <!-- Replace my images with generic ones and use the database URL fields -->
-        <img src=@profile.CoverImageURL alt="profile cover image" class="cover-img rounded">
-        <img src=@profile.ProfileImageURL alt="profile picture" class="profile-img rounded rounded-circle">
+        <img src=@db.GetProfile(Username).CoverImageURL alt="profile cover image" class="cover-img rounded">
+        <img src=@db.GetProfile(Username).ProfileImageURL alt="profile picture" class="profile-img rounded rounded-circle">
     </div>
     <div class="row">
         <div class="col text-center">
-            <h1 id="name">@profile.FirstName @profile.LastName</h1>
+            <h1 id="name">@db.GetProfile(Username).FirstName @db.GetProfile(Username).LastName</h1>
         </div>
 
         <div class="col-8 text-right">
-            <h3>@@@profile.Username</h3>
+            <h3>@@@Username</h3>
         </div>
 
     </div>
@@ -33,9 +33,9 @@
                         </div>
 
                         <div class="col">
-                            <img src=@profile.ProfileImageURL alt="user's profile image"
+                            <img src=@db.GetProfile(Username).ProfileImageURL alt="user's profile image"
                                 class="post-img rounded rounded-circle">
-                            <h3 class="post-author"><a href=@ProfileUrl()>@@@profile.Username</a></h3>
+                            <h3 class="post-author"><a href=@ProfileUrl()>@@@Username</a></h3>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                     </div>
                     <hr>
                     <div class="card-text">
-                        <p>@profile.UserBio</p>
+                        <p>@db.GetProfile(Username).UserBio</p>
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                     </div>
                     <hr>
                     <div class="card-text">
-                        <p>@profile.Website</p>
+                        <p>@db.GetProfile(Username).Website</p>
                     </div>
                 </div>
             </div>
@@ -146,23 +146,11 @@
 
 
 @code {
-    private static ProfileDatabaseService db = new ProfileDatabaseService();
-
-    public Models.Profile profile = db.GetProfile(AccountService.User.Username);
-
-
+    [Parameter]
+    public string Username { get; set; }
+    private ProfileDatabaseService db = new ProfileDatabaseService();
     public string ProfileUrl()
     {
-        return profile.ProfileURL;
-    }
-
-    public string ProfileImageURL()
-    {
-        return profile.ProfileImageURL;
-    }
-
-    public string CoverImageURL()
-    {
-        return profile.CoverImageURL;
+        return db.GetProfile(Username).ProfileURL;
     }
 }
