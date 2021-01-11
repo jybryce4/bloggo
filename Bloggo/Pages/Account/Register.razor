@@ -57,11 +57,12 @@
 
     void RegisterUser()
     {
-        //loading = false;
-
         UserDatabaseService.CreateRow(model);
+        
         db.CreateRow(model);
+        db.CloseConnection();
 
         NavigationManager.NavigateTo("/account/register/thank-you");
+
     }
 }

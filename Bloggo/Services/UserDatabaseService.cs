@@ -21,9 +21,18 @@ namespace Bloggo.Services
         //     connection = new SqlConnection(connectionString);
         // }
 
-        public static User GetUser(string username)
+        public static void OpenConnection()
         {
             connection.Open();
+        }
+
+        public static void CloseConnection()
+        {
+            connection.Close();
+        }
+
+        public static User GetUser(string username)
+        {
 
             // we need to check to make sure the user exists
             //string checkUser = $"SELECT count(*) FROM [dbo].[Users] WHERE UserName='{username}'";
@@ -55,9 +64,6 @@ namespace Bloggo.Services
                         }
                     }
 
-                    
-                    connection.Close();
-
                     return user;
 
                 
@@ -66,6 +72,7 @@ namespace Bloggo.Services
             {
                 Console.WriteLine("Error: " + se.ToString());
             }
+
             
             return default;
         }
@@ -95,12 +102,10 @@ namespace Bloggo.Services
 
             SqlCommand cmd = new SqlCommand(sql, connection);
 
-           connection.Open();
-
             cmd.ExecuteNonQuery();
             
             cmd.Dispose();
-            connection.Close();
+            
             
         }
         
@@ -113,7 +118,6 @@ namespace Bloggo.Services
             cmd.ExecuteNonQuery();
             
             cmd.Dispose();
-            connection.Close();
 
         }
 

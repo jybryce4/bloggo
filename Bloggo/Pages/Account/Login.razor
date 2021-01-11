@@ -45,8 +45,9 @@
         string username = model.Username;
         string password = model.Password;
 
+        UserDatabaseService.OpenConnection();
         string passwordHash = UserDatabaseService.GetUser(username).PasswordHash;
-        // string userID = db.GetUser(username).Id;
+        UserDatabaseService.CloseConnection();
 
         //AccountService accountService = new AccountService(db);
 

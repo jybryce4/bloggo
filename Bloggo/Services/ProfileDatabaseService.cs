@@ -21,6 +21,7 @@ namespace Bloggo.Services
 
         public void OpenConnection()
         {
+            connection.Open();
         }
 
         public void CloseConnection()
