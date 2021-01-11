@@ -186,6 +186,10 @@ a, .btn-link {
     margin-left: 100px;
 }
 
+.table-header {
+    margin-top: 30px;
+}
+
 #name {
     margin-top: 50px;
 }

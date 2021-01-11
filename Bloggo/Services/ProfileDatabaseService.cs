@@ -14,7 +14,7 @@ namespace Bloggo.Services
         {
             // SECURE THIS
             connection = new SqlConnection("Data Source=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;User Id=bloggodba@bloggodev;Password=Catruya#4961");
-            
+            OpenConnection();
         }
 
         public void OpenConnection()
