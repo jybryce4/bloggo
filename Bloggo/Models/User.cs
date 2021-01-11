@@ -8,9 +8,7 @@ namespace Bloggo.Models
         public string PasswordHash{ get; set; } // hash from db
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string ProfileImageURL { get; set; }
-        public string CoverImageURL { get; set; }
+        public string Birthday { get; set; }
         public string Email { get; set; }
-        public string Bio { get; set; }
     }
 }

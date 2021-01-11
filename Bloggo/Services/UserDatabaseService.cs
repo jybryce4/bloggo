@@ -54,10 +54,8 @@ namespace Bloggo.Services
                             user.PasswordHash = reader["PasswordHash"].ToString();
                             user.FirstName = reader["FirstName"].ToString();
                             user.LastName = reader["LastName"].ToString();
-                            user.ProfileImageURL = reader["ProfileImageURL"].ToString();
-                            user.CoverImageURL = reader["CoverImageURL"].ToString();
+                            user.Birthday = reader["Birthday"].ToString();
                             user.Email = reader["Email"].ToString();
-                            user.Bio = reader["Bio"].ToString();
                         }
                     }
 
@@ -91,12 +89,13 @@ namespace Bloggo.Services
             return userList;
         }
 
+        // This creates a new user (registration)
         public static async Task CreateRow(User user)
         {
             PasswordHasher pwh = new PasswordHasher(user.Password); // encrypt the password
 
-            string sql = "INSERT INTO [dbo].[Users] ([UserName], [PasswordHash], [FirstName], [LastName], [ProfileImageURL], [Email])" 
-                        + $"VALUES ('{user.Username}', '{pwh.GetHash()}', '{user.FirstName}', '{user.LastName}', 'img/blank_profile.jpg', '{user.Email}')";
+            string sql = "INSERT INTO [dbo].[Users] ([UserName], [PasswordHash], [FirstName], [LastName], [Email])" 
+                        + $"VALUES ('{user.Username}', '{pwh.GetHash()}', '{user.FirstName}', '{user.LastName}', '{user.Email}')";
 
             SqlCommand cmd = new SqlCommand(sql, connection);
 
@@ -111,7 +110,7 @@ namespace Bloggo.Services
         
         public static async Task EditRow(string pk, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[Users] set {columnName}='{value}' WHERE UserID={pk}";
+            string sql = $"UPDATE [dbo].[Users] set {columnName}='{value}' WHERE UserName={pk}";
             
             SqlCommand cmd = new SqlCommand(sql, connection);
 

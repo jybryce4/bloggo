@@ -1,0 +1,158 @@
+@page "/users/{Username}"
+
+<div class="container">
+    <div class="row">
+        <!-- Replace my images with generic ones and use the database URL fields -->
+        <img src="img/blank_cover.jpg" alt="profile cover image" class="cover-img rounded">
+        <img src="img/blank_profile.jpg" alt="profile picture" class="profile-img rounded rounded-circle">
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <h1 id="name">@AccountService.User.FirstName @AccountService.User.LastName</h1>
+        </div>
+
+        <div class="col-8 text-right">
+            <h3>@@@Username</h3>
+        </div>
+
+    </div>
+</div>
+<hr>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">Latest Posts</h3>
+            <!-- Insert post getting code here-->
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="post-title"><a href="#">Post Title</a></h1>
+                            <h3 class="post-title"><em>Post subtitle - a test design for posts</em></h3>
+                        </div>
+
+                        <div class="col text-right">
+                            <img src=@ProfileImageURL() alt="user's profile image" class="post-img rounded rounded-circle">
+                            <h3 class="post-author"><a href="/users/{Username}">@@@AccountService.User.Username</a></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-body">
+                    <div class="post-text">
+                        <p>Test test test
+
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test</p>
+
+                        <p>Test test test
+
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test</p>
+
+                        <p>Test test test
+
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test</p>
+
+                    </div>
+                </div>
+
+                <div class="post-footer">
+                    <p class="text-muted">Posted on January 9th, 2021 at 6:30PM</p>
+                    <p class="text-muted"><em>Bloggo Web - USA</em></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3>About Me</h3>
+                    </div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3>My Website</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- To do -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3>Users I follow</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- To do -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3>Tags I follow</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- To do -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@code {
+    [Parameter]
+    public string Username { get; set; }
+
+    string ProfileImageURL()
+    {
+        return "";
+    }
+
+    string CoverImageURL()
+    {
+        return "";
+    }
+}
