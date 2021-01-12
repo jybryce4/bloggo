@@ -4,39 +4,37 @@ using System.Threading.Tasks;
 using Bloggo.Models;
 using Microsoft.Data.SqlClient;
 
-namespace Bloggo.Services
+namespace Bloggo.Services.Database
 {
-    public class ProfileDatabaseService
+    public class ProfileDatabaseService : IDatabaseService<Profile>
     {
-        private SqlConnection connection;
-
         // SECURE THIS
-        private string connectionString = "Server=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;Persist Security Info=False;User ID=bloggodba;Password=Sunanoken@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        static string ConnectionString = "Server=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;Persist Security Info=False;User ID=bloggodba;Password=Sunanoken@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        SqlConnection Connection = new SqlConnection(ConnectionString);
 
         public ProfileDatabaseService()
         {
-            connection = new SqlConnection(connectionString);
             OpenConnection();
         }
 
         public void OpenConnection()
         {
-            connection.Open();
+            Connection.Open();
         }
 
         public void CloseConnection()
         {
-            connection.Close();
+            Connection.Close();
         }
 
-        public Profile GetProfile(string username)
+        public Profile GetItem(string primaryKey)
         {
             
 
             Profile profile = new Profile();
             string selectProfile =
-                $"SELECT * FROM [dbo].[Profile] WHERE UserName='{username}'";
-            SqlCommand sql = new SqlCommand(selectProfile, connection);
+                $"SELECT * FROM [dbo].[Profile] WHERE UserName='{primaryKey}'";
+            SqlCommand sql = new SqlCommand(selectProfile, Connection);
 
             // reading the data back into the frontend
             using (SqlDataReader reader = sql.ExecuteReader())
@@ -69,7 +67,7 @@ namespace Bloggo.Services
             IList<Profile> profileList = new List<Profile>();
            
             string query = "SELECT * FROM [dbo].[Profile]";
-            SqlCommand cmd = new SqlCommand(query, connection);
+            SqlCommand cmd = new SqlCommand(query, Connection);
             //var reader = cmd.ExecuteReader();
             
             
@@ -110,7 +108,7 @@ namespace Bloggo.Services
             string sql = "INSERT INTO [dbo].[Profile] ([UserName], [FirstName], [LastName], [ProfileURL], [ProfileImageURL], [CoverImageURL], [UserBio], [Website], [NumFollowers], [Coins])" 
                         + $"VALUES ('{user.Username}', '{user.FirstName}', '{user.LastName}', 'users/{user.Username}', 'img/blank_profile.jpg', 'img/blank_cover.jpg', 'This person might be shy (no about me found!)', '<no website given>', 0, 0)";
 
-            SqlCommand cmd = new SqlCommand(sql, connection);
+            SqlCommand cmd = new SqlCommand(sql, Connection);
 
             cmd.ExecuteNonQuery();
             
@@ -120,11 +118,11 @@ namespace Bloggo.Services
             
         }
 
-        public void EditRow(string key, string columnName, string value)
+        public void EditRow(string primaryKey, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[Profile] SET {columnName}='{value}' WHERE UserName={key}";
+            string sql = $"UPDATE [dbo].[Profile] SET {columnName}='{value}' WHERE UserName={primaryKey}";
             
-            SqlCommand cmd = new SqlCommand(sql, connection);
+            SqlCommand cmd = new SqlCommand(sql, Connection);
 
             cmd.ExecuteNonQuery();
             cmd.Dispose();

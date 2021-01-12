@@ -3,12 +3,12 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Replace my images with generic ones and use the database URL fields -->
-        <img src=@db.GetProfile(Username).CoverImageURL alt="profile cover image" class="cover-img rounded">
-        <img src=@db.GetProfile(Username).ProfileImageURL alt="profile picture" class="profile-img rounded rounded-circle">
+        <img src=@db.GetItem(Username).CoverImageURL alt="profile cover image" class="cover-img rounded">
+        <img src=@db.GetItem(Username).ProfileImageURL alt="profile picture" class="profile-img rounded rounded-circle">
     </div>
     <div class="row">
         <div class="col text-center">
-            <h1 id="name">@db.GetProfile(Username).FirstName @db.GetProfile(Username).LastName</h1>
+            <h1 id="name">@db.GetItem(Username).FirstName @db.GetItem(Username).LastName</h1>
         </div>
 
         <div class="col-8 text-right">
@@ -23,74 +23,6 @@
         <div class="col">
             <h3 class="text-center">Latest Posts</h3>
             <!-- Insert post getting code here-->
-
-            <div class="post">
-                <div class="post-header">
-                    <div class="row">
-                        <div class="col">
-                            <h1 class="post-title"><a href="#">Post Title</a></h1>
-                            <h3 class="post-title"><em>Post subtitle - a test design for posts</em></h3>
-                        </div>
-
-                        <div class="col">
-                            <img src=@db.GetProfile(Username).ProfileImageURL alt="user's profile image"
-                                class="post-img rounded rounded-circle">
-                            <h3 class="post-author"><a href=@ProfileUrl()>@@@Username</a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-body">
-                    <div class="post-text">
-                        <p>Test test test
-
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test</p>
-
-                        <p>Test test test
-
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test</p>
-
-                        <p>Test test test
-
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test
-                            Test test test</p>
-
-                    </div>
-                </div>
-
-                <div class="post-footer">
-                    <p class="text-muted">Posted on January 9th, 2021 at 6:30PM</p>
-                    <p class="text-muted"><em>Bloggo Web - USA</em></p>
-                </div>
-            </div>
         </div>
 
         <div class="col">
@@ -101,7 +33,7 @@
                     </div>
                     <hr>
                     <div class="card-text">
-                        <p>@db.GetProfile(Username).UserBio</p>
+                        <p>@db.GetItem(Username).UserBio</p>
                     </div>
                 </div>
             </div>
@@ -113,7 +45,7 @@
                     </div>
                     <hr>
                     <div class="card-text">
-                        <p>@db.GetProfile(Username).Website</p>
+                        <p>@db.GetItem(Username).Website</p>
                     </div>
                 </div>
             </div>
@@ -150,6 +82,6 @@
     private ProfileDatabaseService db = new ProfileDatabaseService();
     public string ProfileUrl()
     {
-        return db.GetProfile(Username).ProfileURL;
+        return db.GetItem(Username).ProfileURL;
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Bloggo.Models;
 
 
-namespace Bloggo.Services
+namespace Bloggo.Services.Database
 {
     public static class UserDatabaseService
     {

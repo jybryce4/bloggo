@@ -1,7 +1,6 @@
 using Bloggo.Models;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Bloggo.Services.Database;
 
 namespace Bloggo.Services
 {
