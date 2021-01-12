@@ -17,16 +17,16 @@ namespace Bloggo.Services
         //     //_httpHandler = new HttpHandler(_userDatabaseService);
         // }
 
-        public static void Login(Login model, string passwordHash)
+        public static void Login(Login model, string passwordHash, IDatabaseService<User> db)
         {
             //User = await _httpHandler.Post<User>("/account/authenticate", model);
             if (VerifyPassword(model.Password, passwordHash) && model != null)
             {
-                UserDatabaseService.OpenConnection();
-                User = UserDatabaseService.GetUser(model.Username);
+                db.OpenConnection();
+                User = db.GetItem(model.Username);
                 Console.WriteLine($"{User.Username} logged in.");
                 loggedIn = true;
-                UserDatabaseService.CloseConnection();
+                db.CloseConnection();
             }
             else 
             {

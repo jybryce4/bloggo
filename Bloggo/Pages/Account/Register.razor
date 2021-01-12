@@ -33,10 +33,6 @@
                     <ValidationMessage For="@(() => model.Password)" />
                 </div>
                 <button class="btn btn-primary">
-                    @* @if (loading)
-                    {
-                        <span class="spinner-border spinner-border-sm mr-1"></span>
-                    } *@
                     Register
                 </button>
                 <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
@@ -49,21 +45,19 @@
 @code {
     private Models.User model = new Models.User();
 
-    private ProfileDatabaseService db = new ProfileDatabaseService();
-    // private static UserDatabaseService db = new UserDatabaseService();
-    // AccountService accountService = new AccountService(db);
-
-    //private bool loading;
+    private IDatabaseService<User> userDB = new UserDatabaseService();
+    private IDatabaseService<Profile> profileDB = new ProfileDatabaseService();
+ 
 
     void RegisterUser()
     {
-        UserDatabaseService.OpenConnection();
-        UserDatabaseService.CreateRow(model);
+        userDB.OpenConnection();
+        userDB.CreateRow(model);
 
-        db.CreateRow(model);
+        profileDB.CreateRow(model);
 
-        UserDatabaseService.CloseConnection();
-        db.CloseConnection();
+        userDB.CloseConnection();
+        profileDB.CloseConnection();
 
         NavigationManager.NavigateTo("/account/register/thank-you");
 

@@ -40,14 +40,14 @@
     private void LoginUser()
     {
         //loading = true;
-        //UserDatabaseService db = new UserDatabaseService();
+        IDatabaseService<User> db = new UserDatabaseService();
 
         string username = model.Username;
         string password = model.Password;
 
-        UserDatabaseService.OpenConnection();
-        string passwordHash = UserDatabaseService.GetUser(username).PasswordHash;
-        UserDatabaseService.CloseConnection();
+        db.OpenConnection();
+        string passwordHash = db.GetItem(username).PasswordHash;
+        db.CloseConnection();
 
         //AccountService accountService = new AccountService(db);
 
@@ -56,7 +56,7 @@
 
         try
         {
-            AccountService.Login(model, passwordHash);
+            AccountService.Login(model, passwordHash, db);
             NavigationManager.NavigateTo($"users/{username}/feed");
         }
         catch (Exception exception)

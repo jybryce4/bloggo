@@ -44,12 +44,21 @@
 
 @code {
     private Models.User model = new Models.User();
-    private ProfileDatabaseService db = new ProfileDatabaseService();
+
+    private IDatabaseService<User> userDB = new UserDatabaseService();
+    private IDatabaseService<Profile> profileDB = new ProfileDatabaseService();
 
     void MakeUser()
     {
-        UserDatabaseService.CreateRow(model);
-        db.CreateRow(model);
+        userDB.OpenConnection();
+        profileDB.OpenConnection();
+
+        userDB.CreateRow(model);
+        profileDB.CreateRow(model);
+
+        userDB.CloseConnection();
+        profileDB.CloseConnection();
+
         NavigationManager.NavigateTo("/admin");
     }
 }

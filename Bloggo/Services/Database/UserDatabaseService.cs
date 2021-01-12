@@ -7,13 +7,13 @@ using Bloggo.Models;
 
 namespace Bloggo.Services.Database
 {
-    public static class UserDatabaseService
+    public class UserDatabaseService : IDatabaseService<User>
     {
         
         // To do: make this more secure!!!!
-        private static string connectionString = "Server=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;Persist Security Info=False;User ID=bloggodba;Password=Sunanoken@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        static string ConnectionString = "Server=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;Persist Security Info=False;User ID=bloggodba;Password=Sunanoken@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         
-        private static SqlConnection connection = new SqlConnection(connectionString);
+        SqlConnection Connection = new SqlConnection(ConnectionString);
         // public UserDatabaseService() 
         // {
         //     // Replace BLOGGO_DB with the environment variable of your connection string
@@ -21,17 +21,17 @@ namespace Bloggo.Services.Database
         //     connection = new SqlConnection(connectionString);
         // }
 
-        public static void OpenConnection()
+        public void OpenConnection()
         {
-            connection.Open();
+            Connection.Open();
         }
 
-        public static void CloseConnection()
+        public void CloseConnection()
         {
-            connection.Close();
+            Connection.Close();
         }
 
-        public static User GetUser(string username)
+        public User GetItem(string primaryKey)
         {
 
             // we need to check to make sure the user exists
@@ -48,8 +48,8 @@ namespace Bloggo.Services.Database
                 // else 
                 // {   
                     User user = new User();
-                    string selectUser = $"SELECT * FROM [dbo].[User] WHERE UserName='{username}'";
-                    SqlCommand sql = new SqlCommand(selectUser, connection);
+                    string selectUser = $"SELECT * FROM [dbo].[User] WHERE UserName='{primaryKey}'";
+                    SqlCommand sql = new SqlCommand(selectUser, Connection);
                     
                     // reading the data back into the frontend
                     using (SqlDataReader reader = sql.ExecuteReader())
@@ -77,30 +77,27 @@ namespace Bloggo.Services.Database
             return default;
         }
 
-        public static async Task<IList<string>> GetAllRows()
+        public IList<User> GetAllRows()
         {
-            IList<string> userList = null;
+            IList<User> userList = null;
             string query = "SELECT * FROM [dbo].[User]";
-            SqlCommand cmd = new SqlCommand(query, connection);
-            var sqlOutput = await cmd.ExecuteReaderAsync();
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            var sqlOutput = cmd.ExecuteReader();
             
-            foreach (var item in sqlOutput)
-            {
-                userList.Add(item.ToString());
-            }
+            // To do
 
             return userList;
         }
 
         // This creates a new user (registration)
-        public static void CreateRow(User user)
+        public void CreateRow(User user)
         {
             PasswordHasher pwh = new PasswordHasher(user.Password); // encrypt the password
 
             string sql = "INSERT INTO [dbo].[User] ([UserName], [PasswordHash], [FirstName], [LastName], [Email])" 
                         + $"VALUES ('{user.Username}', '{pwh.GetHash()}', '{user.FirstName}', '{user.LastName}', '{user.Email}')";
 
-            SqlCommand cmd = new SqlCommand(sql, connection);
+            SqlCommand cmd = new SqlCommand(sql, Connection);
 
             cmd.ExecuteNonQuery();
             
@@ -109,11 +106,11 @@ namespace Bloggo.Services.Database
             
         }
         
-        public static void EditRow(string key, string columnName, string value)
+        public void EditRow(string primaryKey, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[User] SET {columnName}='{value}' WHERE UserName={key}";
+            string sql = $"UPDATE [dbo].[User] SET {columnName}='{value}' WHERE UserName={primaryKey}";
             
-            SqlCommand cmd = new SqlCommand(sql, connection);
+            SqlCommand cmd = new SqlCommand(sql, Connection);
 
             cmd.ExecuteNonQuery();
             
