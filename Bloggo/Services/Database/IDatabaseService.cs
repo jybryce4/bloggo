@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Bloggo.Services.Database
 {
-    public interface IDatabaseService<T>
+    public interface IDatabaseService<T, M>
     {
         static string ConnectionString { get; set; }
 
@@ -14,6 +14,7 @@ namespace Bloggo.Services.Database
 
         abstract T GetItem(string primaryKey);
         abstract IList<T> GetAllRows();
+        abstract void CreateRow(M model);
         abstract void EditRow(string primaryKey, string columnName, string value);
     }
 }

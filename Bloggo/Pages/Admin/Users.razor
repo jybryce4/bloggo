@@ -41,11 +41,9 @@
 
 
 @code {
-    private ProfileDatabaseService db = new ProfileDatabaseService();
+    private IDatabaseService<Profile, User> db = new ProfileDatabaseService();
     IList<Profile> ProfileList()
     {
-        //db.OpenConnection();
-
         IList<Profile> profileList = db.GetAllRows();
         
         db.CloseConnection();

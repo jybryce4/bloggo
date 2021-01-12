@@ -2,11 +2,12 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using Bloggo.Models;
+using Bloggo.Helpers;
 
 
 namespace Bloggo.Services.Database
 {
-    public class UserDatabaseService : IAccountDatabaseService<User>
+    public class UserDatabaseService : IDatabaseService<User, User>
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         

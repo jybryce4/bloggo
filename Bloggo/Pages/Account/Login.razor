@@ -40,7 +40,7 @@
     private void LoginUser()
     {
         //loading = true;
-        IAccountDatabaseService<User> db = new UserDatabaseService();
+        IDatabaseService<User, User> db = new UserDatabaseService();
 
         string username = model.Username;
         string password = model.Password;

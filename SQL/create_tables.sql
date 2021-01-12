@@ -15,7 +15,7 @@ CREATE TABLE [dbo].[User]
 -- Profiles table stores data for generating profile pages
 CREATE TABLE [dbo].[Profile]
 (
-    ProfileID BIGINT NOT NULL IDENTITY,
+    ProfileID INT NOT NULL IDENTITY,
     UserName NVARCHAR(30) NOT NULL UNIQUE,
     FirstName NVARCHAR(100) NOT NULL,
     LastName NVARCHAR(100) NOT NULL,
@@ -24,8 +24,8 @@ CREATE TABLE [dbo].[Profile]
     CoverImageURL NVARCHAR(200),
     UserBio NVARCHAR(4000),
     Website NVARCHAR(100),
-    NumFollowers BIGINT,
-    Coins BIGINT,
+    NumFollowers INT,
+    Coins INT,
     CONSTRAINT FK_UserName_Profiles FOREIGN KEY (UserName) REFERENCES [dbo].[User] (UserName)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
@@ -39,8 +39,8 @@ CREATE TABLE [dbo].[Profile]
 -- Bridge entity for Profiles and Posts
 CREATE TABLE [dbo].[UserPost]
 (
-    UserPostID BIGINT NOT NULL IDENTITY PRIMARY KEY,
-    PostID BIGINT NOT NULL,
+    UserPostID INT NOT NULL IDENTITY PRIMARY KEY,
+    PostID INT NOT NULL,
     UserName NVARCHAR(30) NOT NULL,
     CONSTRAINT FK_UserName_UserPosts FOREIGN KEY (UserName) REFERENCES [dbo].[Profile] (UserName)
     ON DELETE CASCADE
@@ -50,13 +50,13 @@ CREATE TABLE [dbo].[UserPost]
 -- Definition for how Posts are stored on the server
 CREATE TABLE [dbo].[Post]
 (
-    PostID BIGINT NOT NULL IDENTITY PRIMARY KEY,
+    PostID INT NOT NULL IDENTITY PRIMARY KEY,
     Title NVARCHAR(60),
     Subtitle NVARCHAR(60),
     Content NVARCHAR(MAX) NOT NULL,
     DatePosted DATE,
-    Reblogs BIGINT,
-    Upvotes BIGINT
+    Reblogs INT,
+    Upvotes INT
 );
 
 -- Adding FK constraint

@@ -1,4 +1,4 @@
-﻿namespace Bloggo.Services
+﻿namespace Bloggo.Helpers
 {
     public class PasswordHasher
     {

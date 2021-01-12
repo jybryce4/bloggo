@@ -2,7 +2,7 @@ namespace Bloggo.Models
 {
     public class Profile
     {
-        public string ProfileID { get; set; }
+        public int ProfileID { get; set; }
 
         public string Username { get; set; }
 
@@ -20,8 +20,8 @@ namespace Bloggo.Models
 
         public string Website { get; set; }
 
-        public string NumFollowers { get; set; }
+        public int NumFollowers { get; set; }
 
-        public string Coins { get; set; }
+        public int Coins { get; set; }
     }
 }

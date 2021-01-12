@@ -9,9 +9,9 @@
             </div>
 
             <div class="col">
-                <img src=@db.GetItem(Username).ProfileImageURL alt="user's profile image"
+                <img src=@ProfileDB.GetItem(Username).ProfileImageURL alt="user's profile image"
                     class="post-img rounded rounded-circle">
-                <h3 class="post-author"><a href=@ProfileUrl()>@@@db.GetItem(Username).Username</a></h3>
+                <h3 class="post-author"><a href=@ProfileUrl()>@@@Username</a></h3>
             </div>
         </div>
     </div>
@@ -34,13 +34,12 @@
 
     [Parameter]
     public string PostID { get; set; }
-
-    private ProfileDatabaseService db = new ProfileDatabaseService();
-
-
+    private IDatabaseService<Profile, User> ProfileDB = new ProfileDatabaseService();
     public string ProfileUrl()
     {
-        db.CloseConnection();
+        IDatabaseService<User, User> UserDB = new UserDatabaseService();
+        
+        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
         return "";
     }
 

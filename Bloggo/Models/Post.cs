@@ -2,7 +2,7 @@ namespace Bloggo.Models
 {
     public class Post
     {
-        public string PostID { get; set; }
+        public int PostID { get; set; }
 
         public string Title { get; set; }
 

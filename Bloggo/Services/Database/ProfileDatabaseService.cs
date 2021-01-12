@@ -5,7 +5,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Bloggo.Services.Database
 {
-    public class ProfileDatabaseService : IAccountDatabaseService<Profile>
+    public class ProfileDatabaseService : IDatabaseService<Profile, User>
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);
@@ -26,8 +26,6 @@ namespace Bloggo.Services.Database
 
         public Profile GetItem(string primaryKey)
         {
-            
-
             Profile profile = new Profile();
             string selectProfile =
                 $"SELECT * FROM [dbo].[Profile] WHERE UserName='{primaryKey}'";
@@ -38,7 +36,7 @@ namespace Bloggo.Services.Database
             {
                 while (reader.Read())
                 {
-                    profile.ProfileID = reader["ProfileID"].ToString();
+                    profile.ProfileID = Convert.ToInt32(reader["ProfileID"].ToString());
                     profile.Username = reader["UserName"].ToString();
                     profile.FirstName = reader["FirstName"].ToString();
                     profile.LastName = reader["LastName"].ToString();
@@ -47,8 +45,8 @@ namespace Bloggo.Services.Database
                     profile.CoverImageURL = reader["CoverImageURL"].ToString();
                     profile.UserBio = reader["UserBio"].ToString();
                     profile.Website = reader["Website"].ToString();
-                    profile.NumFollowers = reader["NumFollowers"].ToString();
-                    profile.Coins = reader["Coins"].ToString();
+                    profile.NumFollowers = Convert.ToInt32(reader["NumFollowers"].ToString());
+                    profile.Coins = Convert.ToInt32(reader["Coins"].ToString());
                 }
             }
 
@@ -73,7 +71,7 @@ namespace Bloggo.Services.Database
                 while (reader.Read())
                 {
                     Profile profile = new Profile();
-                    profile.ProfileID = reader["ProfileID"].ToString();
+                    profile.ProfileID = Convert.ToInt32(reader["ProfileID"].ToString());
                     profile.Username = reader["UserName"].ToString();
                     profile.FirstName = reader["FirstName"].ToString();
                     profile.LastName = reader["LastName"].ToString();
@@ -82,8 +80,8 @@ namespace Bloggo.Services.Database
                     profile.CoverImageURL = reader["CoverImageURL"].ToString();
                     profile.UserBio = reader["UserBio"].ToString();
                     profile.Website = reader["Website"].ToString();
-                    profile.NumFollowers = reader["NumFollowers"].ToString();
-                    profile.Coins = reader["Coins"].ToString();
+                    profile.NumFollowers = Convert.ToInt32(reader["NumFollowers"].ToString());
+                    profile.Coins = Convert.ToInt32(reader["Coins"].ToString());
 
                     //profileList.Add(GetProfile(reader["UserName"].ToString()));
                     profileList.Add(profile);

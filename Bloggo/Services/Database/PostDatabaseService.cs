@@ -5,7 +5,7 @@ using Bloggo.Models;
 
 namespace Bloggo.Services.Database
 {
-    public class PostDatabaseService : IContentDatabaseService<Post>
+    public class PostDatabaseService : IDatabaseService<Post, Post>
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);
@@ -28,7 +28,7 @@ namespace Bloggo.Services.Database
         {
             Post post = new Post();
             string selectPost =
-                $"SELECT * FROM [dbo].[Post] WHERE PostID='{primaryKey}'";
+                $"SELECT * FROM [dbo].[Post] WHERE PostID={Convert.ToInt32(primaryKey)}";
             SqlCommand sql = new SqlCommand(selectPost, Connection);
 
             // reading the data back into the frontend
@@ -36,7 +36,7 @@ namespace Bloggo.Services.Database
             {
                 while (reader.Read())
                 {
-                    post.PostID = reader["PostID"].ToString();
+                    post.PostID = Convert.ToInt32(reader["PostID"].ToString());
                     post.Title = reader["Title"].ToString();
                     post.Subtitle = reader["Subtitle"].ToString();
                     post.Content = reader["Content"].ToString();
@@ -48,6 +48,7 @@ namespace Bloggo.Services.Database
 
             return post;
         }
+
         public IList<Post> GetAllRows()
         {
             IList<Post> postList = new List<Post>();
@@ -61,7 +62,7 @@ namespace Bloggo.Services.Database
                 {
                     Post post = new Post();
 
-                    post.PostID = reader["PostID"].ToString();
+                    post.PostID = Convert.ToInt32(reader["PostID"].ToString());
                     post.Title = reader["Title"].ToString();
                     post.Subtitle = reader["Subtitle"].ToString();
                     post.Content = reader["Content"].ToString();
