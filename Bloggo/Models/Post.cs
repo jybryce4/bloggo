@@ -13,5 +13,9 @@ namespace Bloggo.Models
         public string Content { get; set; }
 
         public string DatePosted { get; set; } // YYYY-MM-DD
+
+        public int Reblogs { get; set; }
+
+        public int Upvotes { get; set; }
     }
 }

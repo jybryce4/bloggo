@@ -8,14 +8,8 @@ namespace Bloggo.Services.Database
 {
     public class ProfileDatabaseService : IDatabaseService<Profile>
     {
-        // SECURE THIS
-        static string ConnectionString = "Server=tcp:bloggodev.database.windows.net,1433;Initial Catalog=Bloggo-Dev-DB;Persist Security Info=False;User ID=bloggodba;Password=Sunanoken@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);
-
-        public ProfileDatabaseService()
-        {
-            OpenConnection();
-        }
 
         public void OpenConnection()
         {
