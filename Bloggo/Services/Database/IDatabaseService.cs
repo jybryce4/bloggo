@@ -1,6 +1,5 @@
-using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
-using Bloggo.Models;
+using Microsoft.Data.SqlClient;
 
 namespace Bloggo.Services.Database
 {
@@ -15,8 +14,6 @@ namespace Bloggo.Services.Database
 
         abstract T GetItem(string primaryKey);
         abstract IList<T> GetAllRows();
-        
-        abstract void CreateRow(User user);
         abstract void EditRow(string primaryKey, string columnName, string value);
     }
 }

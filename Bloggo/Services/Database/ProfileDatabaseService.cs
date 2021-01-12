@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Bloggo.Models;
 using Microsoft.Data.SqlClient;
 
 namespace Bloggo.Services.Database
 {
-    public class ProfileDatabaseService : IDatabaseService<Profile>
+    public class ProfileDatabaseService : IAccountDatabaseService<Profile>
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);
@@ -124,8 +123,6 @@ namespace Bloggo.Services.Database
 
             cmd.ExecuteNonQuery();
             cmd.Dispose();
-            //connection.Close();
-
         }
 
     }

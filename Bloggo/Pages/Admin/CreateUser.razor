@@ -45,8 +45,8 @@
 @code {
     private Models.User model = new Models.User();
 
-    private IDatabaseService<User> userDB = new UserDatabaseService();
-    private IDatabaseService<Profile> profileDB = new ProfileDatabaseService();
+    private IAccountDatabaseService<User> userDB = new UserDatabaseService();
+    private IAccountDatabaseService<Profile> profileDB = new ProfileDatabaseService();
 
     void MakeUser()
     {

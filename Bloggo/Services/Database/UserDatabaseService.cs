@@ -6,7 +6,7 @@ using Bloggo.Models;
 
 namespace Bloggo.Services.Database
 {
-    public class UserDatabaseService : IDatabaseService<User>
+    public class UserDatabaseService : IAccountDatabaseService<User>
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         
