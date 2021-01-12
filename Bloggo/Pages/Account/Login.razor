@@ -45,9 +45,8 @@
         string username = model.Username;
         string password = model.Password;
 
-        db.OpenConnection();
         string passwordHash = db.GetItem(username).PasswordHash;
-        db.CloseConnection();
+        
 
         //AccountService accountService = new AccountService(db);
 
@@ -57,12 +56,14 @@
         try
         {
             AccountService.Login(model, passwordHash, db);
+            db.CloseConnection();
             NavigationManager.NavigateTo($"users/{username}/feed");
         }
         catch (Exception exception)
         {
             // loading = false;
             Console.WriteLine(exception.Message);
+            db.CloseConnection();
             NavigationManager.NavigateTo("account/invalid-login");
             StateHasChanged();
         }

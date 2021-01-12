@@ -11,6 +11,10 @@ namespace Bloggo.Services.Database
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);
 
+        public ProfileDatabaseService()
+        {
+            OpenConnection();
+        }
         public void OpenConnection()
         {
             Connection.Open();

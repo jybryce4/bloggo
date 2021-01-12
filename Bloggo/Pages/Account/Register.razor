@@ -51,7 +51,6 @@
 
     void RegisterUser()
     {
-        userDB.OpenConnection();
         userDB.CreateRow(model);
 
         profileDB.CreateRow(model);

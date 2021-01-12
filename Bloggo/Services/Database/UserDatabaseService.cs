@@ -18,6 +18,11 @@ namespace Bloggo.Services.Database
         //     connection = new SqlConnection(connectionString);
         // }
 
+        public UserDatabaseService()
+        {
+            OpenConnection();
+        }
+
         public void OpenConnection()
         {
             Connection.Open();

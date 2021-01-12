@@ -22,7 +22,6 @@ namespace Bloggo.Services
             //User = await _httpHandler.Post<User>("/account/authenticate", model);
             if (VerifyPassword(model.Password, passwordHash) && model != null)
             {
-                db.OpenConnection();
                 User = db.GetItem(model.Username);
                 Console.WriteLine($"{User.Username} logged in.");
                 loggedIn = true;
