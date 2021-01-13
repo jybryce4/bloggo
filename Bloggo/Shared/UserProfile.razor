@@ -78,14 +78,22 @@
 
     public string ProfileUrl()
     {
-        return db.GetItem(Username).ProfileURL;
+        string url = db.GetItem(Username).ProfileURL;
+        
+        db.CloseConnection();
+
+        return url;
     }
 
     public IList<UserPost> UserPostList()
     {
         UserPostDatabaseService UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
 
-        return UserPostDB.GetAllPostsFor(Username);
+        var userPosts = UserPostDB.GetAllPostsFor(Username);
+
+        UserPostDB.CloseConnection();
+
+        return userPosts;
     }
 
 }

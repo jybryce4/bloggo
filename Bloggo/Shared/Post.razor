@@ -23,16 +23,19 @@
         </div>
 
         <div class="post-footer">
-            <div class="col">
-                <p class="text-muted">@GetUpvotes()</p>
-                <p class="text-muted">@GetReblogs()</p>
-            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <p class="text-muted">@GetUpvotes()</p>
+                        <p class="text-muted">@GetReblogs()</p>
+                    </div>
 
-            <div class="col">
-                <p class="text-muted">@GetDatePosted()</p>
-                <p class="text-muted"><em>Bloggo Web - USA</em></p>
+                    <div class="col">
+                        <p class="text-muted">@GetDatePosted()</p>
+                        <p class="text-muted"><em>Bloggo Web - USA</em></p>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -51,16 +54,17 @@
     public string GetPostTitle()
     {
         IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-
+        
         UserPost userPost = UserPostDB.GetItem(PostID);
 
         return PostDB.GetItem(userPost.PostID.ToString()).Title;
+
     }
 
     public string GetPostSubtitle()
     {
         IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-
+        
         UserPost userPost = UserPostDB.GetItem(PostID);
 
         return PostDB.GetItem(userPost.PostID.ToString()).Subtitle;
@@ -69,21 +73,26 @@
     public string GetPostContent()
     {
         IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-
+        
         UserPost userPost = UserPostDB.GetItem(PostID);
+
 
         return PostDB.GetItem(userPost.PostID.ToString()).Content;
     }
 
     public string GetDatePosted()
     {
-        return ""; // gonna have to figure out date format
+        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
+        
+        UserPost userPost = UserPostDB.GetItem(PostID);
+
+        return PostDB.GetItem(userPost.PostID.ToString()).DatePosted; // gonna have to figure out date format
     }
 
     public int GetReblogs()
     {
         IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-
+        
         UserPost userPost = UserPostDB.GetItem(PostID);
 
         return PostDB.GetItem(userPost.PostID.ToString()).Reblogs;
@@ -92,7 +101,6 @@
     public int GetUpvotes()
     {
         IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-
         UserPost userPost = UserPostDB.GetItem(PostID);
 
         return PostDB.GetItem(userPost.PostID.ToString()).Upvotes;
@@ -108,4 +116,8 @@
         return $"/users/{Username}/posts/{PostID}";
     }
 
+    public void CloseDatabase() {
+        UserDB.CloseConnection();
+        ProfileDB.CloseConnection();
+    }  
 }

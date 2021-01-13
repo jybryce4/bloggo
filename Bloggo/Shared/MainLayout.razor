@@ -22,6 +22,10 @@
                 <NavLink href=@UserFeedUrl() class="nav-item nav-link">My Feed</NavLink>
                 <NavLink href=@ProfileUrl() class="nav-item nav-link">View Profile</NavLink>
                 <NavLink href=@EditProfileUrl() class="nav-item nav-link">Edit Profile</NavLink>
+                @if (AccountService.User.Username == "jybryce")
+                {
+                    <NavLink href="/admin" class="nav-item nav-link">Admin Functions</NavLink>
+                }
                 <NavLink href="account/logout" class="nav-item nav-link">Logout</NavLink>
             </div>
         </nav>

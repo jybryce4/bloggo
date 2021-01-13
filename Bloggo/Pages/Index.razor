@@ -11,10 +11,12 @@
 
                 <div class="card-body">
                     <h4>
-                        <a class="btn btn-primary" href="account/login">Login</a> <a class="btn btn-dark" href="account/register">Register</a>
+                        <a class="btn btn-primary" href="account/login">Login</a> 
+                        <a class="btn btn-dark" href="account/register">Register</a>
                     </h4>
                     <hr>
-                    <h5>If you're completely new, be sure to check out the <a href="/information/faq">FAQ</a> before registering.</h5>
+                    <h5>If you're completely new, be sure to check out the <a href="/information/faq">FAQ</a> before
+                        registering.</h5>
                 </div>
             </div>
 
@@ -60,230 +62,230 @@
 
             </div>
         }
-        @if (AccountService.loggedIn)
-        {
-            <div class="container">
-                <div class="row">
-                    <div class="col">
+    </div>
+    @if (AccountService.loggedIn)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col">
 
-                        <!--- Code to grab posts here (Examples shown)-->
-                        <div class="container-fluid">
-                            <div class="post">
-                                <div class="post-header">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h1 class="post-title"><a href="#">Post Title</a></h1>
-                                            <h3 class="post-title"><em>Post subtitle - a test design for posts</em></h3>
-                                        </div>
+                    <!--- Code to grab posts here (Examples shown)-->
+                    <div class="container-fluid">
+                        <div class="post">
+                            <div class="post-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <h1 class="post-title"><a href="#">Post Title</a></h1>
+                                        <h3 class="post-title"><em>Post subtitle - a test design for posts</em></h3>
+                                    </div>
 
-                                        <div class="col text-right">
-                                            <img src="img/blank_profile.jpg" alt="blank profile image" class="post-img rounded rounded-circle">
-                                            <h3 class="post-author"><a href="#">@@postauthor</a></h3>
-                                        </div>
+                                    <div class="col text-right">
+                                        <img src="img/blank_profile.jpg" alt="blank profile image"
+                                            class="post-img rounded rounded-circle">
+                                        <h3 class="post-author"><a href="#">@@postauthor</a></h3>
                                     </div>
                                 </div>
-                                <div class="post-body">
-                                    <div class="post-text">
-                                        <p>Test test test
+                            </div>
+                            <div class="post-body">
+                                <div class="post-text">
+                                    <p>Test test test
 
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test</p>
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test</p>
 
-                                        <p>Test test test
+                                    <p>Test test test
 
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test</p>
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test</p>
 
-                                            <p>Test test test
+                                    <p>Test test test
 
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test</p>
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test
+                                        Test test test</p>
 
-                                    </div>
-                                </div>
-
-                                <div class="post-footer">
-                                    <p class="text-muted">Posted on January 8th, 2021 at 8:45PM</p>
-                                    <p class="text-muted"><em>Bloggo Web - USA</em></p>
                                 </div>
                             </div>
 
-                            @* <div class="post">
-                                <div class="post-header">
-                                    <div class="row">
-                                        <div class="col text-left">
-                                            <h1><a href="#">Post Title</a></h1>
-                                        </div>
+                            <div class="post-footer">
+                                <p class="text-muted">Posted on January 8th, 2021 at 8:45PM</p>
+                                <p class="text-muted"><em>Bloggo Web - USA</em></p>
+                            </div>
+                        </div>
 
-                                        <div class="col text-right">
-                                            <h3>@@<a href="#">postauthor</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post-body">
-                                    <div class="post-text">
-                                        <p>Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            
+                        @* <div class="post">
+                            <div class="post-header">
+                            <div class="row">
+                            <div class="col text-left">
+                            <h1><a href="#">Post Title</a></h1>
+                            </div>
 
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test</p>
+                            <div class="col text-right">
+                            <h3>@@<a href="#">postauthor</a></h3>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="post-body">
+                            <div class="post-text">
+                            <p>Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
 
-                                            <p>Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test</p>
 
-                                        <p>Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test</p>
 
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test</p>
+                            <p>Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test</p>
 
-                                    </div>
-                                </div>
-                                <div class="post-footer">
-                                    <p class="text-muted">Posted on January 8th, 2021 at 8:30PM</p>
-                                    <p class="text-muted"><em>Bloggo Web - USA</em></p>
-                                </div>
+                            <p>Test test test
+
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test</p>
+
+                            </div>
+                            </div>
+                            <div class="post-footer">
+                            <p class="text-muted">Posted on January 8th, 2021 at 8:30PM</p>
+                            <p class="text-muted"><em>Bloggo Web - USA</em></p>
+                            </div>
                             </div>
 
                             <div class="post">
-                                <div class="post-header">
-                                    <div class="row">
-                                        <div class="col text-left">
-                                            <h1><a href="#">Post Title</a></h1>
-                                        </div>
+                            <div class="post-header">
+                            <div class="row">
+                            <div class="col text-left">
+                            <h1><a href="#">Post Title</a></h1>
+                            </div>
 
-                                        <div class="col text-right">
-                                            <h3>@@<a href="#">postauthor</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post-body">
-                                    <div class="post-text">
-                                        <p>Test test test
+                            <div class="col text-right">
+                            <h3>@@<a href="#">postauthor</a></h3>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="post-body">
+                            <div class="post-text">
+                            <p>Test test test
 
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test</p>
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test</p>
 
-                                        <p>Test test test
+                            <p>Test test test
 
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test
-                                            Test test test</p>
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test
+                            Test test test</p>
 
-                                    </div>
-                                </div>
-                                <div class="post-footer">
-                                    <p class="text-muted">Posted on January 8th, 2021 at 8:30PM</p>
-                                    <p class="text-muted"><em>Bloggo Web - USA</em></p>
-                                </div>
+                            </div>
+                            </div>
+                            <div class="post-footer">
+                            <p class="text-muted">Posted on January 8th, 2021 at 8:30PM</p>
+                            <p class="text-muted"><em>Bloggo Web - USA</em></p>
+                            </div>
                             </div> *@
 
-                        </div>
-
                     </div>
 
-                    <div class="col-4">
-                        <div class="container">
-                            <div class="card sidebar">
-                                <div class="card-header text-center">
-                                    <h1>Trending Topics</h1>
-                                </div>
-                                <div class="card-body">
-                                    <!--- Code to grab tags here (Example shown)-->
-                                    <div class="card-text">
-                                        <ul class="list-group">
-                                            <a class="list-group-item list-group-item-action" href="#">#code</a>
-                                            <a class="list-group-item list-group-item-action" href="#">#JavaScript</a>
-                                            <a class="list-group-item list-group-item-action" href="#">#WebDevelopment</a>
-                                            <a class="list-group-item list-group-item-action" href="#">#Frameworks</a>
-                                            <a class="list-group-item list-group-item-action" href="#">#API</a>
-                                            <a class="list-group-item list-group-item-action" href="#">#SQL</a>
-                                            <a class="list-group-item list-group-item-action" href="#">#Python</a>
-                                        </ul>
+                </div>
 
-                                    </div>
+                <div class="col-4">
+                    <div class="container">
+                        <div class="card sidebar">
+                            <div class="card-header text-center">
+                                <h1>Trending Topics</h1>
+                            </div>
+                            <div class="card-body">
+                                <!--- Code to grab tags here (Example shown)-->
+                                <div class="card-text">
+                                    <ul class="list-group">
+                                        <a class="list-group-item list-group-item-action" href="#">#code</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#JavaScript</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#WebDevelopment</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#Frameworks</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#API</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#SQL</a>
+                                        <a class="list-group-item list-group-item-action" href="#">#Python</a>
+                                    </ul>
+
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
-
             </div>
-        }
 
-    </div>
+        </div>
+    }
 </div>
 
 @code {
