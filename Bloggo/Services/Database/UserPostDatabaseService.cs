@@ -30,7 +30,7 @@ namespace Bloggo.Services.Database
         {
             UserPost userPost = new UserPost();
             string selectUserPost =
-                $"SELECT * FROM [dbo].[UserPost] WHERE UserPostID='{primaryKey}'";
+                $"SELECT * FROM [dbo].[UserPost] WHERE PostID={Convert.ToInt32(primaryKey)}";
             SqlCommand sql = new SqlCommand(selectUserPost, Connection);
 
             // reading the data back into the frontend

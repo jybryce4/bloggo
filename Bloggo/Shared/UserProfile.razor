@@ -23,6 +23,10 @@
         <div class="col">
             <h3 class="text-center">Latest Posts</h3>
             <!-- Insert post getting code here-->
+            @foreach (var post in UserPostList())
+            {
+                <Post Username=@Username PostID=@post.PostID.ToString()/>
+            }
         </div>
 
         <div id="profile-sections" class="col">
@@ -68,9 +72,20 @@
 @code {
     [Parameter]
     public string Username { get; set; }
-    private ProfileDatabaseService db = new ProfileDatabaseService();
+
+    private IDatabaseService<Profile, User> db = new ProfileDatabaseService();
+    private IDatabaseService<User, User> UserDB = new UserDatabaseService();
+
     public string ProfileUrl()
     {
         return db.GetItem(Username).ProfileURL;
     }
+    
+    public IList<UserPost> UserPostList()
+    {
+        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
+
+        return UserPostDB.GetAllRows();
+    }
+
 }

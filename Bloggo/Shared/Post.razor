@@ -1,30 +1,39 @@
 @page "/users/{Username}/posts/{PostID}"
 
-<div class="post">
-    <div class="post-header">
-        <div class="row">
+<div class="container-fluid">
+    <div class="post">
+        <div class="post-header">
+            <div class="row">
+                <div class="col">
+                    <h1 class="post-title"><a href=@GetPostUrl()>@GetPostTitle()</a></h1>
+                    <h3 class="post-title"><em>@GetPostSubtitle()</em></h3>
+                </div>
+
+                <div class="col">
+                    <img src=@ProfileDB.GetItem(Username).ProfileImageURL alt="user's profile image"
+                        class="post-img rounded rounded-circle">
+                    <h3 class="post-author"><a href=@ProfileUrl()>@@@Username</a></h3>
+                </div>
+            </div>
+        </div>
+        <div class="post-body">
+            <div class="post-text">
+                @GetPostContent()
+            </div>
+        </div>
+
+        <div class="post-footer">
             <div class="col">
-                <h1 class="post-title"><a href="#"></a></h1>
-                <h3 class="post-title"><em></em></h3>
+                <p class="text-muted">@GetUpvotes()</p>
+                <p class="text-muted">@GetReblogs()</p>
             </div>
 
             <div class="col">
-                <img src=@ProfileDB.GetItem(Username).ProfileImageURL alt="user's profile image"
-                    class="post-img rounded rounded-circle">
-                <h3 class="post-author"><a href=@ProfileUrl()>@@@Username</a></h3>
+                <p class="text-muted">@GetDatePosted()</p>
+                <p class="text-muted"><em>Bloggo Web - USA</em></p>
             </div>
-        </div>
-    </div>
-    <div class="post-body">
-        <div class="post-text">
-            
 
         </div>
-    </div>
-
-    <div class="post-footer">
-        <p class="text-muted"></p>
-        <p class="text-muted"><em>Bloggo Web - USA</em></p>
     </div>
 </div>
 
@@ -34,18 +43,69 @@
 
     [Parameter]
     public string PostID { get; set; }
+
     private IDatabaseService<Profile, User> ProfileDB = new ProfileDatabaseService();
     private IDatabaseService<User, User> UserDB = new UserDatabaseService();
-    
+    private IDatabaseService<Models.Post, Models.Post> PostDB = new PostDatabaseService();
+
+    public string GetPostTitle()
+    {
+        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
+
+        UserPost userPost = UserPostDB.GetItem(PostID);
+
+        return PostDB.GetItem(userPost.PostID.ToString()).Title;
+    }
+
+    public string GetPostSubtitle()
+    {
+        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
+
+        UserPost userPost = UserPostDB.GetItem(PostID);
+
+        return PostDB.GetItem(userPost.PostID.ToString()).Subtitle;
+    }
+
     public string GetPostContent()
     {
         IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-        
-        return "";
+
+        UserPost userPost = UserPostDB.GetItem(PostID);
+
+        return PostDB.GetItem(userPost.PostID.ToString()).Content;
     }
+
+    public string GetDatePosted()
+    {
+        return ""; // gonna have to figure out date format
+    }
+
+    public int GetReblogs()
+    {
+        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
+
+        UserPost userPost = UserPostDB.GetItem(PostID);
+
+        return PostDB.GetItem(userPost.PostID.ToString()).Reblogs;
+    }
+
+    public int GetUpvotes()
+    {
+        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
+
+        UserPost userPost = UserPostDB.GetItem(PostID);
+
+        return PostDB.GetItem(userPost.PostID.ToString()).Upvotes;
+    }
+
     public string ProfileUrl()
     {
         return $"{ProfileDB.GetItem(Username).ProfileURL}";
+    }
+
+    public string GetPostUrl()
+    {
+        return $"/users/{Username}/posts/{PostID}";
     }
 
 }
