@@ -35,12 +35,17 @@
     [Parameter]
     public string PostID { get; set; }
     private IDatabaseService<Profile, User> ProfileDB = new ProfileDatabaseService();
+    private IDatabaseService<User, User> UserDB = new UserDatabaseService();
+    
+    public string GetPostContent()
+    {
+        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
+        
+        return "";
+    }
     public string ProfileUrl()
     {
-        IDatabaseService<User, User> UserDB = new UserDatabaseService();
-        
-        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-        return "";
+        return $"{ProfileDB.GetItem(Username).ProfileURL}";
     }
 
 }
