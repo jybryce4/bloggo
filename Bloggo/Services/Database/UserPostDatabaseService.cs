@@ -72,6 +72,32 @@ namespace Bloggo.Services.Database
             return userPostList;
         }
 
+        public IList<UserPost> GetAllPostsFor(string username)
+        {
+            IList<UserPost> posts = new List<UserPost>();
+            
+            string query = $"SELECT * FROM [dbo].[UserPost] WHERE UserName='{username}'";
+            
+            SqlCommand cmd = new SqlCommand(query, Connection);
+
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    UserPost userPost = new UserPost();
+
+                    userPost.UserPostID = Convert.ToInt32(reader["UserPostID"].ToString());
+                    userPost.PostID = Convert.ToInt32(reader["PostID"].ToString());
+                    userPost.UserName = reader["UserName"].ToString();
+                    
+                    posts.Add(userPost);
+                }
+                   
+            }
+
+            return posts;
+        }
+
         public void CreateRow(Post post)
         {
             string sql = "INSERT INTO [dbo].[UserPost] ([PostID], [UserName])" 
