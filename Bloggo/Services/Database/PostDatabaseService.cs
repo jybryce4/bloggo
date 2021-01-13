@@ -37,6 +37,7 @@ namespace Bloggo.Services.Database
                 while (reader.Read())
                 {
                     post.PostID = Convert.ToInt32(reader["PostID"].ToString());
+                    post.Username = reader["UserName"].ToString();
                     post.Title = reader["Title"].ToString();
                     post.Subtitle = reader["Subtitle"].ToString();
                     post.Content = reader["Content"].ToString();
@@ -63,6 +64,7 @@ namespace Bloggo.Services.Database
                     Post post = new Post();
 
                     post.PostID = Convert.ToInt32(reader["PostID"].ToString());
+                    post.Username = reader["UserName"].ToString();
                     post.Title = reader["Title"].ToString();
                     post.Subtitle = reader["Subtitle"].ToString();
                     post.Content = reader["Content"].ToString();
@@ -80,8 +82,8 @@ namespace Bloggo.Services.Database
         
         public void CreateRow(Post post)
         {
-            string sql = "INSERT INTO [dbo].[Post] ([Title], [Subtitle], [Content], [DatePosted], [Reblogs], [Upvotes])" 
-                        + $"VALUES ('{post.Title}', '{post.Subtitle}', '{post.Content}', '{post.DatePosted}', '{post.Reblogs}', '{post.Upvotes}')";
+            string sql = "INSERT INTO [dbo].[Post] ([UserName], [Title], [Subtitle], [Content], [DatePosted], [Reblogs], [Upvotes])" 
+                        + $"VALUES (LOWER('{post.Username}'), '{post.Title}', '{post.Subtitle}', '{post.Content}', '{post.DatePosted}', '{post.Reblogs}', '{post.Upvotes}')";
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 

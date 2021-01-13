@@ -1,7 +1,7 @@
-ALTER TABLE [dbo].[UserPost]
-DROP CONSTRAINT FK_UserName_UserPosts;
+-- ALTER TABLE [dbo].[UserPost]
+-- DROP CONSTRAINT FK_UserName_UserPosts;
 
-DROP TABLE [dbo].[UserPost];
+-- DROP TABLE [dbo].[UserPost];
 
 DROP TABLE [dbo].[Post];
 

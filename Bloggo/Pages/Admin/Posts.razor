@@ -1,5 +1,45 @@
 @page "/admin/posts"
 
-@code {
+<div class="card-header table-header">
+    <div class="row">
+        <div class="col">
+            <h1>Posts</h1>
+        </div>
+        <div class="col">
+            <a href="/admin/posts/create" id="admin-post-btn" class="btn btn-primary">Create Post</a>
+        </div>
+    </div>
     
+</div>
+<table class="table table-striped table-bordered table-dark">
+    <thead>
+        <th scope="col">id#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+    </thead>
+    <tbody>
+        @foreach (var post in PostList())
+        {
+            <tr>
+                <th scope="row">@post.PostID</th>
+                <td>@post.Username</td>
+                <td>@post.Title</td>
+                <td>@post.Content</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    private IDatabaseService<Models.Post, Models.Post> db = new PostDatabaseService();
+    IList<Models.Post> PostList()
+    {
+        IList<Models.Post> postList = db.GetAllRows();
+        
+        db.CloseConnection();
+
+        return postList;
+    }
 }

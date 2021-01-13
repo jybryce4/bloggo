@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="col">
-                    <img src=@ProfileDB.GetItem(Username).ProfileImageURL alt="user's profile image"
+                    <img src=@ProfileDB.GetItem(PostDB.GetItem(PostID).Username).ProfileImageURL alt="user's profile image"
                         class="post-img rounded rounded-circle">
                     <h3 class="post-author"><a href=@ProfileUrl()>@@@Username</a></h3>
                 </div>
@@ -53,57 +53,34 @@
 
     public string GetPostTitle()
     {
-        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-        
-        UserPost userPost = UserPostDB.GetItem(PostID);
-
-        return PostDB.GetItem(userPost.PostID.ToString()).Title;
-
+        return PostDB.GetItem(PostID).Title;
     }
 
     public string GetPostSubtitle()
     {
-        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-        
-        UserPost userPost = UserPostDB.GetItem(PostID);
-
-        return PostDB.GetItem(userPost.PostID.ToString()).Subtitle;
+        return PostDB.GetItem(PostID).Subtitle;
     }
 
     public string GetPostContent()
     {
-        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-        
-        UserPost userPost = UserPostDB.GetItem(PostID);
-
-
-        return PostDB.GetItem(userPost.PostID.ToString()).Content;
+      
+        return PostDB.GetItem(PostID).Content;
     }
 
     public string GetDatePosted()
     {
-        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-        
-        UserPost userPost = UserPostDB.GetItem(PostID);
-
-        return PostDB.GetItem(userPost.PostID.ToString()).DatePosted; // gonna have to figure out date format
+        return PostDB.GetItem(PostID).DatePosted; // gonna have to figure out date format
     }
 
     public int GetReblogs()
     {
-        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-        
-        UserPost userPost = UserPostDB.GetItem(PostID);
 
-        return PostDB.GetItem(userPost.PostID.ToString()).Reblogs;
+        return PostDB.GetItem(PostID).Reblogs;
     }
 
     public int GetUpvotes()
     {
-        IDatabaseService<UserPost, Models.Post> UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
-        UserPost userPost = UserPostDB.GetItem(PostID);
-
-        return PostDB.GetItem(userPost.PostID.ToString()).Upvotes;
+        return PostDB.GetItem(PostID).Upvotes;
     }
 
     public string ProfileUrl()
@@ -119,5 +96,6 @@
     public void CloseDatabase() {
         UserDB.CloseConnection();
         ProfileDB.CloseConnection();
+        PostDB.CloseConnection();
     }  
 }

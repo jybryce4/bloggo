@@ -25,7 +25,7 @@
             <!-- Insert post getting code here-->
             @foreach (var post in UserPostList())
             {
-                <Post Username=@post.UserName PostID=@post.PostID.ToString()/>
+                <Post Username=@post.Username PostID=@post.PostID.ToString()/>
             }
         </div>
 
@@ -74,7 +74,8 @@
     public string Username { get; set; }
 
     private IDatabaseService<Profile, User> db = new ProfileDatabaseService();
-    private IDatabaseService<User, User> UserDB = new UserDatabaseService();
+    
+    private IDatabaseService<Models.Post, Models.Post> PostDB = new PostDatabaseService();
 
     public string ProfileUrl()
     {
@@ -85,13 +86,12 @@
         return url;
     }
 
-    public IList<UserPost> UserPostList()
+    public IList<Models.Post> UserPostList()
     {
-        UserPostDatabaseService UserPostDB = new UserPostDatabaseService(UserDB.GetItem(Username));
 
-        var userPosts = UserPostDB.GetAllPostsFor(Username);
+        var userPosts = PostDB.GetAllRows();
 
-        UserPostDB.CloseConnection();
+        PostDB.CloseConnection();
 
         return userPosts;
     }

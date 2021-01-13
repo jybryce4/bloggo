@@ -193,7 +193,8 @@ a, .btn-link {
     margin-top: 30px;
 }
 
-#admin-user-btn {
+/* Admin */
+#admin-user-btn, #admin-post-btn {
     margin-top: 10px;
     margin-left: 500px;
 }
@@ -203,6 +204,13 @@ a, .btn-link {
     margin-left: 250px;
     max-width: 50%;
 }
+
+#admin-post-form {
+    margin-top: 3px;
+    margin-left: 250px;
+    max-width: 50%;
+}
+
 
 #name {
     margin-top: 50px;

@@ -4,6 +4,8 @@ namespace Bloggo.Models
     {
         public int PostID { get; set; }
 
+        public string Username { get; set; }
+
         public string Title { get; set; }
 
         public string Subtitle { get; set; }

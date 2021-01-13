@@ -37,33 +37,35 @@ CREATE TABLE [dbo].[Profile]
 --------------------------------------------------------------------------------------------------
 
 -- Bridge entity for Profiles and Posts
-CREATE TABLE [dbo].[UserPost]
-(
-    UserPostID INT NOT NULL IDENTITY PRIMARY KEY,
-    PostID INT NOT NULL,
-    UserName NVARCHAR(30) NOT NULL,
-    CONSTRAINT FK_UserName_UserPosts FOREIGN KEY (UserName) REFERENCES [dbo].[Profile] (UserName)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
+-- CREATE TABLE [dbo].[UserPost]
+-- (
+--     UserPostID INT NOT NULL IDENTITY PRIMARY KEY,
+--     PostID INT NOT NULL,
+--     UserName NVARCHAR(30) NOT NULL,
+--     CONSTRAINT FK_UserName_UserPosts FOREIGN KEY (UserName) REFERENCES [dbo].[Profile] (UserName)
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE
+-- );
 
 -- Definition for how Posts are stored on the server
 CREATE TABLE [dbo].[Post]
 (
     PostID INT NOT NULL IDENTITY PRIMARY KEY,
+    UserName NVARCHAR(30),
     Title NVARCHAR(60),
     Subtitle NVARCHAR(60),
     Content NVARCHAR(MAX) NOT NULL,
     DatePosted DATE,
     Reblogs INT,
-    Upvotes INT
+    Upvotes INT,
+    CONSTRAINT FK_UserName_Posts FOREIGN KEY (UserName) REFERENCES [dbo].[Profile] (UserName)
 );
 
 -- Adding FK constraint
-ALTER TABLE [dbo].[UserPost]
-ADD CONSTRAINT FK_PostID_UserPosts FOREIGN KEY (PostID) REFERENCES [dbo].[Post] (PostID)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
+-- ALTER TABLE [dbo].[UserPost]
+-- ADD CONSTRAINT FK_PostID_UserPosts FOREIGN KEY (PostID) REFERENCES [dbo].[Post] (PostID)
+-- ON DELETE CASCADE
+-- ON UPDATE CASCADE;
 
 
 
