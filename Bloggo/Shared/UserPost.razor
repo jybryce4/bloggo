@@ -12,7 +12,7 @@
                 <div class="col">
                     <img src=@AsyncUtil.RunSync(() => AccountService.profileDatabaseService.GetItem(Username)).ProfileImageURL alt="user's profile image"
                         class="post-img rounded rounded-circle">
-                    <h3 class="post-author"><a href=@ProfileUrl()>@@@Username</a></h3>
+                    <h3 class="post-author"><a href=@AsyncUtil.RunSync(() => ProfileUrl())>@@@Username</a></h3>
                 </div>
             </div>
         </div>
