@@ -245,10 +245,11 @@ a, .btn-link {
     border: 1px solid black;
 }
 
-#about {
+#about, #mission-stmt {
     margin-top: 40px;
     margin-bottom: 80px;
 }
+
 
 #register-form {
     margin-top: 20px;
