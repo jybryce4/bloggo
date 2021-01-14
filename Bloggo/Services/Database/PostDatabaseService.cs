@@ -101,9 +101,9 @@ namespace Bloggo.Services.Database
             
             cmd.Dispose();
         }
-        public void EditRow(string primaryKey, string columnName, string value)
+        public void EditRow(int primaryKey, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[Post] SET {columnName}='{value}' WHERE PostID={Convert.ToInt32(primaryKey)}";
+            string sql = $"UPDATE [dbo].[Post] SET {columnName}='{value}' WHERE PostID={primaryKey}";
             
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
@@ -111,9 +111,9 @@ namespace Bloggo.Services.Database
             cmd.Dispose();
         }
 
-        public void DeleteRow(string primaryKey)
+        public void DeleteRow(int primaryKey)
         {
-            string sql = $"DELETE [dbo].[Post] WHERE UserName='{primaryKey}'";
+            string sql = $"DELETE [dbo].[Post] WHERE PostID={primaryKey}";
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 

@@ -26,6 +26,7 @@
                 <td>@post.Username</td>
                 <td>@post.Title</td>
                 <td>@post.Content</td>
+                <td><a href=@GetEditLink(post) class="btn btn-info">Edit</a></td>
             </tr>
         }
     </tbody>
@@ -41,5 +42,10 @@
         db.CloseConnection();
 
         return postList;
+    }
+
+    string GetEditLink(Post post)
+    {
+        return $"/admin/posts/edit/{post.Username}/{post.PostID}";
     }
 }
