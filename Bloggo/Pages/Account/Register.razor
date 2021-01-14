@@ -49,14 +49,16 @@
     private IDatabaseService<Profile, User, string> profileDB = new ProfileDatabaseService();
  
 
-    void RegisterUser()
+    async Task RegisterUser()
     {
-        userDB.CreateRow(model);
+        await userDB.OpenConnection();
+        await profileDB.OpenConnection();
 
-        profileDB.CreateRow(model);
+        await userDB.CreateRow(model);
+        await profileDB.CreateRow(model);
 
-        userDB.CloseConnection();
-        profileDB.CloseConnection();
+        await userDB.CloseConnection();
+        await profileDB.CloseConnection();
 
         NavigationManager.NavigateTo("/account/register/thank-you");
 

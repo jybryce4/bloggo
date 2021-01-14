@@ -1,6 +1,7 @@
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bloggo.Models;
 
 namespace Bloggo.Services.Database
@@ -10,21 +11,21 @@ namespace Bloggo.Services.Database
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);
 
-        public PostDatabaseService()
+        // public PostDatabaseService()
+        // {
+        //     OpenConnection();
+        // }
+        public async Task OpenConnection()
         {
-            OpenConnection();
-        }
-        public void OpenConnection()
-        {
-            Connection.Open();
-        }
-
-        public void CloseConnection()
-        {
-            Connection.Close();
+            await Connection.OpenAsync();
         }
 
-        public Post GetItem(int primaryKey)
+        public async Task CloseConnection()
+        {
+            await Connection.CloseAsync();
+        }
+
+        public async Task<Post> GetItem(int primaryKey)
         {
             Post post = new Post();
             string selectPost =
@@ -32,9 +33,9 @@ namespace Bloggo.Services.Database
             SqlCommand sql = new SqlCommand(selectPost, Connection);
 
             // reading the data back into the frontend
-            using (SqlDataReader reader = sql.ExecuteReader())
+            using (SqlDataReader reader = await sql.ExecuteReaderAsync())
             {
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     post.PostID = Convert.ToInt32(reader["PostID"].ToString());
                     post.Username = reader["UserName"].ToString();
@@ -50,7 +51,7 @@ namespace Bloggo.Services.Database
             return post;
         }
 
-        public IList<Post> GetAllRows(string username = null)
+        public async Task<IList<Post>> GetAllRows(string username = null)
         {
             IList<Post> postList = new List<Post>();
 
@@ -67,9 +68,9 @@ namespace Bloggo.Services.Database
             
             SqlCommand cmd = new SqlCommand(query, Connection);
 
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
             {
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     Post post = new Post();
 
@@ -90,35 +91,35 @@ namespace Bloggo.Services.Database
             return postList;
         }
         
-        public void CreateRow(Post post)
+        public async Task CreateRow(Post post)
         {
             string sql = "INSERT INTO [dbo].[Post] ([UserName], [Title], [Subtitle], [Content], [DatePosted], [Reblogs], [Upvotes])" 
                         + $"VALUES (LOWER('{post.Username}'), '{post.Title}', '{post.Subtitle}', '{post.Content}', '{DateTime.Now}', '{post.Reblogs}', '{post.Upvotes}')";
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             
-            cmd.Dispose();
+            await cmd.DisposeAsync();
         }
-        public void EditRow(int primaryKey, string columnName, string value)
+        public async Task EditRow(int primaryKey, string columnName, string value)
         {
             string sql = $"UPDATE [dbo].[Post] SET {columnName}='{value}' WHERE PostID={primaryKey}";
             
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+            await cmd.ExecuteNonQueryAsync();
+            await cmd.DisposeAsync();
         }
 
-        public void DeleteRow(int primaryKey)
+        public async Task DeleteRow(int primaryKey)
         {
             string sql = $"DELETE [dbo].[Post] WHERE PostID={primaryKey}";
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+            await cmd.ExecuteNonQueryAsync();
+            await cmd.DisposeAsync();
         }
     }
 }

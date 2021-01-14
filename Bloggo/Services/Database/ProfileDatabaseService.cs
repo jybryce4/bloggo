@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bloggo.Models;
 using Microsoft.Data.SqlClient;
 
@@ -10,21 +11,21 @@ namespace Bloggo.Services.Database
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);
 
-        public ProfileDatabaseService()
+        // public ProfileDatabaseService()
+        // {
+        //     OpenConnection();
+        // }
+        public async Task OpenConnection()
         {
-            OpenConnection();
-        }
-        public void OpenConnection()
-        {
-            Connection.Open();
-        }
-
-        public void CloseConnection()
-        {
-            Connection.Close();
+            await Connection.OpenAsync();
         }
 
-        public Profile GetItem(string primaryKey)
+        public async Task CloseConnection()
+        {
+            await Connection.CloseAsync();
+        }
+
+        public async Task<Profile> GetItem(string primaryKey)
         {
             Profile profile = new Profile();
             string selectProfile =
@@ -32,9 +33,9 @@ namespace Bloggo.Services.Database
             SqlCommand sql = new SqlCommand(selectProfile, Connection);
 
             // reading the data back into the frontend
-            using (SqlDataReader reader = sql.ExecuteReader())
+            using (SqlDataReader reader = await sql.ExecuteReaderAsync())
             {
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     profile.ProfileID = Convert.ToInt32(reader["ProfileID"].ToString());
                     profile.Username = reader["UserName"].ToString();
@@ -55,7 +56,7 @@ namespace Bloggo.Services.Database
             return profile;
         }
 
-        public IList<Profile> GetAllRows(string value = null)
+        public async Task<IList<Profile>> GetAllRows(string value = null)
         {
             //connection.Open();
 
@@ -66,9 +67,9 @@ namespace Bloggo.Services.Database
             //var reader = cmd.ExecuteReader();
             
             
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
             {
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     Profile profile = new Profile();
                     profile.ProfileID = Convert.ToInt32(reader["ProfileID"].ToString());
@@ -96,41 +97,37 @@ namespace Bloggo.Services.Database
         }
 
         // Creates a new profile in the database when the user registers
-        public void CreateRow(User user)
+        public async Task CreateRow(User user)
         {
-            //connection.Open();
-
             string sql = "INSERT INTO [dbo].[Profile] ([UserName], [FirstName], [LastName], [ProfileURL], [ProfileImageURL], [CoverImageURL], [UserBio], [Website], [NumFollowers], [Coins])" 
                         + $"VALUES ('{user.Username}', '{user.FirstName}', '{user.LastName}', 'users/{user.Username}', 'img/blank_profile.jpg', 'img/blank_cover.jpg', 'This person might be shy (no about me found!)', '<no website given>', 0, 0)";
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             
-            cmd.Dispose();
-            //connection.Close();
-            
+            await cmd.DisposeAsync();      
             
         }
 
-        public void EditRow(string primaryKey, string columnName, string value)
+        public async Task EditRow(string primaryKey, string columnName, string value)
         {
             string sql = $"UPDATE [dbo].[Profile] SET {columnName}='{value}' WHERE UserName={primaryKey}";
             
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+            await cmd.ExecuteNonQueryAsync();
+            await cmd.DisposeAsync();
         }
 
-        public void DeleteRow(string primaryKey)
+        public async Task DeleteRow(string primaryKey)
         {
             string sql = $"DELETE [dbo].[Profile] WHERE UserName='{primaryKey}'";
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+            await cmd.ExecuteNonQueryAsync();
+            await cmd.DisposeAsync();
         }
 
     }

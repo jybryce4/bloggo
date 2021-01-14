@@ -45,16 +45,10 @@
 @code {
     private Models.User model = new Models.User();
 
-    private IDatabaseService<User, User, string> userDB = new UserDatabaseService();
-    private IDatabaseService<Profile, User, string> profileDB = new ProfileDatabaseService();
-
     void MakeUser()
     {
-        userDB.CreateRow(model);
-        profileDB.CreateRow(model);
-
-        userDB.CloseConnection();
-        profileDB.CloseConnection();
+        AccountService.userDatabaseService.CreateRow(model);
+        AccountService.profileDatabaseService.CreateRow(model);
 
         NavigationManager.NavigateTo("/admin");
     }

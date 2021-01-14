@@ -5,12 +5,12 @@
         <div class="post-header">
             <div class="row">
                 <div class="col">
-                    <h1 class="post-title"><a href=@GetPostUrl()>@GetPostTitle()</a></h1>
-                    <h3 class="post-title"><em>@GetPostSubtitle()</em></h3>
+                    <h1 class="post-title"><a href=@GetPostUrl()>@AsyncUtil.RunSync(() => GetPostTitle())</a></h1>
+                    <h3 class="post-title"><em>@AsyncUtil.RunSync(() => GetPostSubtitle())</em></h3>
                 </div>
 
                 <div class="col">
-                    <img src=@ProfileDB.GetItem(PostDB.GetItem(PostID).Username).ProfileImageURL alt="user's profile image"
+                    <img src=@AsyncUtil.RunSync(() => AccountService.profileDatabaseService.GetItem(Username)).ProfileImageURL alt="user's profile image"
                         class="post-img rounded rounded-circle">
                     <h3 class="post-author"><a href=@ProfileUrl()>@@@Username</a></h3>
                 </div>
@@ -18,7 +18,7 @@
         </div>
         <div class="post-body">
             <div class="post-text">
-                @GetPostContent()
+                @AsyncUtil.RunSync(() => GetPostContent())
             </div>
         </div>
 
@@ -26,12 +26,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col">
-                        <p class="text-muted">@GetUpvotes()</p>
-                        <p class="text-muted">@GetReblogs()</p>
+                        <p class="text-muted">@AsyncUtil.RunSync(() => GetUpvotes())</p>
+                        <p class="text-muted">@AsyncUtil.RunSync(() => GetReblogs())</p>
                     </div>
 
                     <div class="col">
-                        <p class="text-muted">@GetDatePosted()</p>
+                        <p class="text-muted">@AsyncUtil.RunSync(() => GetDatePosted())</p>
                         <p class="text-muted"><em>Bloggo Web - USA</em></p>
                     </div>
                 </div>
@@ -47,55 +47,45 @@
     [Parameter]
     public int PostID { get; set; }
 
-    private IDatabaseService<Profile, User, string> ProfileDB = new ProfileDatabaseService();
-    private IDatabaseService<User, User, string> UserDB = new UserDatabaseService();
-    private IDatabaseService<Models.Post, Models.Post, int> PostDB = new PostDatabaseService();
-
-    public string GetPostTitle()
+    async Task<string> GetPostTitle()
     {
-        return PostDB.GetItem(PostID).Title;
+        return (await AccountService.postDatabaseService.GetItem(PostID)).Title;
     }
 
-    public string GetPostSubtitle()
+    async Task<string> GetPostSubtitle()
     {
-        return PostDB.GetItem(PostID).Subtitle;
+        return (await AccountService.postDatabaseService.GetItem(PostID)).Subtitle;
     }
 
-    public string GetPostContent()
+    async Task<string> GetPostContent()
     {
       
-        return PostDB.GetItem(PostID).Content;
+        return (await AccountService.postDatabaseService.GetItem(PostID)).Content;
     }
 
-    public DateTime GetDatePosted()
+    async Task<DateTime> GetDatePosted()
     {
-        return PostDB.GetItem(PostID).DatePosted; // gonna have to figure out date format
+        return (await AccountService.postDatabaseService.GetItem(PostID)).DatePosted; // gonna have to figure out date format
     }
 
-    public int GetReblogs()
+    async Task<int> GetReblogs()
     {
 
-        return PostDB.GetItem(PostID).Reblogs;
+        return (await AccountService.postDatabaseService.GetItem(PostID)).Reblogs;
     }
 
-    public int GetUpvotes()
+    async Task<int> GetUpvotes()
     {
-        return PostDB.GetItem(PostID).Upvotes;
+        return (await AccountService.postDatabaseService.GetItem(PostID)).Upvotes;
     }
 
-    public string ProfileUrl()
+    async Task<string> ProfileUrl()
     {
-        return $"{ProfileDB.GetItem(Username).ProfileURL}";
+        return $"{(await AccountService.profileDatabaseService.GetItem(Username)).ProfileURL}";
     }
 
     public string GetPostUrl()
     {
         return $"/users/{Username}/posts/{PostID}";
     }
-
-    public void CloseDatabase() {
-        UserDB.CloseConnection();
-        ProfileDB.CloseConnection();
-        PostDB.CloseConnection();
-    }  
 }

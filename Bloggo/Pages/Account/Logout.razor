@@ -7,9 +7,9 @@
 </div>
 
 @code {
-    void LogoutUser()
+    async Task LogoutUser()
     {
-        AccountService.Logout();
+        await AccountService.Logout();
         NavigationManager.NavigateTo("/");
     }
     

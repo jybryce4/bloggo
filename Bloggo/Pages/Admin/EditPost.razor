@@ -8,15 +8,15 @@
             <EditForm Model="@GetOriginalPost()" OnValidSubmit="ConfirmEdit">
                 <div class="form-group">
                     <label>Title</label>
-                    <InputText @bind-Value="post.Title"  placeholder=@GetOriginalPost().Title class="form-control"/>
+                    <InputText @bind-Value="post.Title" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label>Subtitle</label>
-                    <InputText @bind-Value="post.Subtitle" placeholder=@GetOriginalPost().Subtitle class="form-control"/>
+                    <InputText @bind-Value="post.Subtitle"  class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label>Content</label>
-                    <InputTextArea @bind-Value="post.Content" placeholder=@GetOriginalPost().Content class="form-control"/>
+                    <InputTextArea @bind-Value="post.Content" class="form-control"/>
                 </div>
                 <button class="btn btn-primary">
                     Confirm Edit
@@ -35,19 +35,32 @@
     public int PostID { get; set; }
 
     Post post = new Post();
-    
-    private IDatabaseService<Post, Post, int> PostDB = new PostDatabaseService();
 
-    public Post GetOriginalPost()
+    public async Task<Post> GetOriginalPost()
     {
-        return PostDB.GetItem(PostID);
+        return await AccountService.postDatabaseService.GetItem(PostID);
     }
 
-    public void ConfirmEdit()
+    async Task<string> GetTitle()
     {
-        PostDB.EditRow(PostID, "Title", post.Title);
-        PostDB.EditRow(PostID, "Subtitle", post.Subtitle);
-        PostDB.EditRow(PostID, "Content", post.Content);
+        return (await GetOriginalPost()).Title;
+    }
+
+    async Task<string> GetSubTitle()
+    {
+        return (await GetOriginalPost()).Subtitle;
+    }
+
+    async Task<string> GetContent()
+    {
+        return (await GetOriginalPost()).Content;
+    }
+
+    async Task ConfirmEdit()
+    {
+        await AccountService.postDatabaseService.EditRow(PostID, "Title", post.Title);
+        await AccountService.postDatabaseService.EditRow(PostID, "Subtitle", post.Subtitle);
+        await AccountService.postDatabaseService.EditRow(PostID, "Content", post.Content);
 
         NavigationManager.NavigateTo("/admin");
     }

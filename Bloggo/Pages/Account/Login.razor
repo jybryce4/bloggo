@@ -18,10 +18,10 @@
                     <ValidationMessage For="@(() => model.Password)" />
                 </div>
                 <button class="btn btn-primary">
-                    @* @if (loading)
+                    @if (loading)
                     {
                         <span class="spinner-border spinner-border-sm mr-1"></span>
-                    } *@
+                    }
                     Login
                 </button>
                 <NavLink href="account/register" class="btn btn-link">Register</NavLink>
@@ -33,37 +33,37 @@
 
 
 @code {
-    //private bool loading;
+    private bool loading;
     private Models.Login model = new Models.Login();
-    private AlertService alertService = new AlertService();
 
-    private void LoginUser()
+    IDatabaseService<User, User, string> userDB = new UserDatabaseService();
+    IDatabaseService<Profile, User, string> profileDB = new ProfileDatabaseService();
+    IDatabaseService<Post, Post, int> postDB = new PostDatabaseService();
+
+    private async Task LoginUser()
     {
-        //loading = true;
-        IDatabaseService<User, User, string> db = new UserDatabaseService();
-
-        string username = model.Username;
-        string password = model.Password;
-
-        string passwordHash = db.GetItem(username).PasswordHash;
-        
-
-        //AccountService accountService = new AccountService(db);
-
-        // reset Alerts on submit
-        //alertService.Clear();
-
         try
         {
-            AccountService.Login(model, passwordHash, db);
-            db.CloseConnection();
+            loading = true;
+
+            await userDB.OpenConnection();
+            await profileDB.OpenConnection();
+            await postDB.OpenConnection();
+            
+            string username = model.Username;
+            string password = model.Password;
+            User user = await userDB.GetItem(username);
+            string passwordHash = user.PasswordHash;
+
+            await AccountService.Login(model, passwordHash, userDB, profileDB, postDB);
+            
             NavigationManager.NavigateTo($"users/{username}/feed");
         }
         catch (Exception exception)
         {
-            // loading = false;
+            loading = false;
             Console.WriteLine(exception.Message);
-            db.CloseConnection();
+            await userDB.CloseConnection();
             NavigationManager.NavigateTo("account/invalid-login");
             StateHasChanged();
         }

@@ -9,7 +9,7 @@
             <a href="/admin/users/create" id="admin-user-btn" class="btn btn-primary">Create User</a>
         </div>
     </div>
-    
+
 </div>
 <table class="table table-striped table-bordered table-dark">
     <thead>
@@ -23,14 +23,15 @@
         <th scope="col">Coins</th>
     </thead>
     <tbody>
-        @foreach (var profile in ProfileList())
+        @foreach (var profile in AsyncUtil.RunSync(() => ProfileList()))
         {
+
             <tr>
                 <th scope="row">@profile.ProfileID</th>
                 <td>@profile.Username</td>
                 <td>@profile.LastName</td>
                 <td>@profile.FirstName</td>
-                <td><a href=@profile.ProfileURL>@profile.ProfileURL</a></td>
+                <td>@profile.ProfileURL</td>
                 <td>TO DO</td>
                 <td>@profile.NumFollowers</td>
                 <td>@profile.Coins</td>
@@ -41,13 +42,11 @@
 
 
 @code {
-    private IDatabaseService<Profile, User, string> db = new ProfileDatabaseService();
-    IList<Profile> ProfileList()
+    async Task<IList<Profile>> ProfileList()
     {
-        IList<Profile> profileList = db.GetAllRows();
-        
-        db.CloseConnection();
+        IList<Profile> profileList = await AccountService.profileDatabaseService.GetAllRows();
 
         return profileList;
     }
+
 }

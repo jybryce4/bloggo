@@ -1,6 +1,7 @@
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bloggo.Models;
 using Bloggo.Helpers;
 
@@ -12,52 +13,46 @@ namespace Bloggo.Services.Database
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         
         SqlConnection Connection = new SqlConnection(ConnectionString);
-        // public UserDatabaseService() 
+    
+        // public UserDatabaseService()
         // {
-        //     // Replace BLOGGO_DB with the environment variable of your connection string
-        //     // connection = new SqlConnection(Environment.GetEnvironmentVariable("BLOGGO_DB"));
-        //     connection = new SqlConnection(connectionString);
+        //     OpenConnection();
         // }
 
-        public UserDatabaseService()
+        public async Task OpenConnection()
         {
-            OpenConnection();
+            await Connection.OpenAsync();
         }
 
-        public void OpenConnection()
+        public async Task CloseConnection()
         {
-            Connection.Open();
+            await Connection.CloseAsync();
         }
 
-        public void CloseConnection()
-        {
-            Connection.Close();
-        }
-
-        public User GetItem(string primaryKey)
+        public async Task<User> GetItem(string primaryKey)
         {
 
             // we need to check to make sure the user exists
-            //string checkUser = $"SELECT count(*) FROM [dbo].[Users] WHERE UserName='{username}'";
-            // SqlCommand cmd = new SqlCommand(checkUser, connection);
+            string checkUser = $"SELECT count(*) FROM [dbo].[User] WHERE UserName='{primaryKey}'";
+            SqlCommand cmd = new SqlCommand(checkUser, Connection);
             try {
-                // int tmp = Convert.ToInt32(cmd.ExecuteScalar().ToString());
-                // if (tmp != 1)
-                // {
-                //     Console.WriteLine("Database error.");
-                //     connection.Close();
-                //     return default; // null
-                // }
-                // else 
-                // {   
+                int tmp = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                if (tmp != 1)
+                {
+                    Console.WriteLine("Database error.");
+                    
+                    return default; // null
+                }
+                else 
+                {   
                     User user = new User();
                     string selectUser = $"SELECT * FROM [dbo].[User] WHERE UserName='{primaryKey}'";
                     SqlCommand sql = new SqlCommand(selectUser, Connection);
                     
                     // reading the data back into the frontend
-                    using (SqlDataReader reader = sql.ExecuteReader())
+                    using (SqlDataReader reader = await sql.ExecuteReaderAsync())
                     {
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
                             user.Username = reader["UserName"].ToString();
                             user.PasswordHash = reader["PasswordHash"].ToString();
@@ -69,7 +64,7 @@ namespace Bloggo.Services.Database
 
                     return user;
 
-                
+                }
             }
             catch (SqlException se)
             {
@@ -80,7 +75,7 @@ namespace Bloggo.Services.Database
             return default;
         }
 
-        public IList<User> GetAllRows(string value = null)
+        public async Task<IList<User>> GetAllRows(string value = null)
         {
             IList<User> userList = null;
             string query = "SELECT * FROM [dbo].[User]";
@@ -93,7 +88,7 @@ namespace Bloggo.Services.Database
         }
 
         // This creates a new user (registration)
-        public void CreateRow(User user)
+        public async Task CreateRow(User user)
         {
             PasswordHasher pwh = new PasswordHasher(user.Password); // encrypt the password
 
@@ -102,47 +97,35 @@ namespace Bloggo.Services.Database
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             
-            cmd.Dispose();
+            await cmd.DisposeAsync();
             
             
         }
         
-        public void EditRow(string primaryKey, string columnName, string value)
+        public async Task EditRow(string primaryKey, string columnName, string value)
         {
             string sql = $"UPDATE [dbo].[User] SET {columnName}='{value}' WHERE UserName='{primaryKey}'";
             
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             
-            cmd.Dispose();
+            await cmd.DisposeAsync();
 
         }
 
-        public void DeleteRow(string primaryKey)
+        public async Task DeleteRow(string primaryKey)
         {
             string sql = $"DELETE [dbo].[User] WHERE UserName='{primaryKey}'";
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+            await cmd.ExecuteNonQueryAsync();
+            await cmd.DisposeAsync();
 
         }
-
-        // public static async Task DeleteRow(string pk)
-        // {
-        //     string sql = $"DELETE [dbo].[Users] WHERE UserID={pk}";
-
-        //     SqlCommand cmd = new SqlCommand(sql, connection);
-
-        //     await cmd.ExecuteNonQueryAsync();
-
-        //     await cmd.DisposeAsync();
-        //     await connection.CloseAsync();
-        // }
         
     }
 }

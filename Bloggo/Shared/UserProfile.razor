@@ -3,12 +3,13 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Replace my images with generic ones and use the database URL fields -->
-        <img src=@db.GetItem(Username).CoverImageURL alt="profile cover image" class="cover-img rounded">
-        <img src=@db.GetItem(Username).ProfileImageURL alt="profile picture" class="profile-img rounded rounded-circle">
+        <img src=@AsyncUtil.RunSync(() => GetUserCoverPic()) alt="profile cover image" class="cover-img rounded">
+        <img src=@AsyncUtil.RunSync(() => GetUserProfilePic()) alt="profile picture" class="profile-img rounded rounded-circle">
     </div>
     <div class="row">
         <div class="col text-center">
-            <h1 id="name">@db.GetItem(Username).FirstName @db.GetItem(Username).LastName</h1>
+            <h1 id="name">@(AsyncUtil.RunSync(() => GetUserFirstName())) @(AsyncUtil.RunSync(() => GetUserLastName()))
+            </h1>
         </div>
 
         <div class="col-8 text-right">
@@ -22,7 +23,7 @@
     <div class="row">
         <div class="col">
             <h3 class="text-center">Latest Posts</h3>
-            @foreach (var post in UserPostList().Reverse())
+            @foreach (var post in (AsyncUtil.RunSync(() => UserPostList()).Reverse()))
             {
                 <UserPost Username=@post.Username PostID=@post.PostID />
             }
@@ -36,7 +37,7 @@
                     </div>
                     <hr>
                     <div class="card-text">
-                        <p>@db.GetItem(Username).UserBio</p>
+                        <p>@AsyncUtil.RunSync(() => GetUserBio())</p>
                     </div>
                 </div>
             </div>
@@ -48,7 +49,7 @@
                     </div>
                     <hr>
                     <div class="card-text">
-                        <p>@db.GetItem(Username).Website</p>
+                        <p>@AsyncUtil.RunSync(() => GetUserWebsite())</p>
                     </div>
                 </div>
             </div>
@@ -72,26 +73,104 @@
     [Parameter]
     public string Username { get; set; }
 
-    private IDatabaseService<Profile, User, string> db = new ProfileDatabaseService();
-    
-    private IDatabaseService<Models.Post, Models.Post, int> PostDB = new PostDatabaseService();
+    //private IDatabaseService<Profile, User, string> db = new ProfileDatabaseService();
 
+    //private IDatabaseService<Models.Post, Models.Post, int> PostDB = new PostDatabaseService();
 
-    public string ProfileUrl()
+    async Task<string> ProfileUrl()
     {
-        string url = db.GetItem(Username).ProfileURL;
-        
-        db.CloseConnection();
+        //await db.OpenConnection();
+
+        string url = (await GetUser()).ProfileURL;
+
+        //await db.CloseConnection();
 
         return url;
     }
 
-    public IList<Models.Post> UserPostList()
+    async Task<Profile> GetUser()
     {
+        //await db.OpenConnection();
 
-        var userPosts = PostDB.GetAllRows(Username);
+        Profile user = await AccountService.profileDatabaseService.GetItem(Username);
 
-        PostDB.CloseConnection();
+        //await db.CloseConnection();
+
+        return user;
+    }
+
+    async Task<string> GetUserFirstName()
+    {
+        string firstName = (await GetUser()).FirstName;
+
+        //await db.CloseConnection();
+
+        return firstName;
+
+    }
+
+    async Task<string> GetUserLastName()
+    {
+        //await db.OpenConnection();
+
+        string lastName = (await GetUser()).LastName;
+
+        //await db.CloseConnection();
+
+        return lastName;
+    }
+
+    async Task<string> GetUserCoverPic()
+    {
+        // await db.OpenConnection();
+
+        string coverURL = (await GetUser()).CoverImageURL;
+
+        //await db.CloseConnection();
+
+        return coverURL;
+    }
+
+    async Task<string> GetUserProfilePic()
+    {
+        //await db.OpenConnection();
+
+        string profileImgUrl = (await GetUser()).ProfileImageURL;
+
+        //await db.CloseConnection();
+
+        return profileImgUrl;
+    }
+
+    async Task<string> GetUserBio()
+    {
+        //await db.OpenConnection();
+
+        string userBio = (await GetUser()).UserBio;
+
+        //await db.CloseConnection();
+
+        return userBio;
+    }
+
+    async Task<string> GetUserWebsite()
+    {
+        //await db.OpenConnection();
+
+        string website = (await GetUser()).Website;
+
+        //await db.CloseConnection();
+
+        return website;
+    }
+
+    async Task<IList<Models.Post>> UserPostList()
+    {
+        //await PostDB.OpenConnection();
+
+        var userPosts = await AccountService.postDatabaseService.GetAllRows(Username);
+
+        //await PostDB.CloseConnection();
 
         return userPosts;
     }

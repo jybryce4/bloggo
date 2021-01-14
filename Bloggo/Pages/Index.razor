@@ -68,13 +68,11 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-
                     <!--- Code to grab posts here (Examples shown)-->
-                    @foreach (var post in PostList().Reverse())
+                    @foreach (var post in AsyncUtil.RunSync(() => PostList()).Reverse())
                     {
                         <UserPost Username=@post.Username PostID=@post.PostID />
                     }
-                    
 
                 </div>
 
@@ -110,12 +108,9 @@
 </div>
 
 @code {
-    private IDatabaseService<Models.Post, Models.Post, int> db = new PostDatabaseService();
-    IList<Models.Post> PostList()
+    async Task<IList<Models.Post>> PostList()
     {
-        IList<Models.Post> postList = db.GetAllRows();
-        
-        db.CloseConnection();
+        IList<Models.Post> postList = await AccountService.postDatabaseService.GetAllRows();
 
         return postList;
     }

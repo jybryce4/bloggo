@@ -35,17 +35,12 @@
 @code {
     Models.Post post = new Models.Post();
     User user = new User();
-
-    private IDatabaseService<Models.Post, Models.Post, int> PostDB = new PostDatabaseService();
-
+    
     void MakePost()
     {
         post.Username = user.Username;
         
-        PostDB.CreateRow(post);
-        
-        PostDB.CloseConnection();
-
+        AccountService.postDatabaseService.CreateRow(post);
 
         NavigationManager.NavigateTo("/admin"); 
     }
