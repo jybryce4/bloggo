@@ -13,8 +13,11 @@ namespace Bloggo.Services.Database
         abstract void CloseConnection();
 
         abstract T GetItem(string primaryKey);
-        abstract IList<T> GetAllRows();
+
+        abstract IList<T> GetAllRows(string value = null);
+        
         abstract void CreateRow(M model);
         abstract void EditRow(string primaryKey, string columnName, string value);
+        abstract void DeleteRow(string primaryKey);
     }
 }

@@ -80,7 +80,7 @@ namespace Bloggo.Services.Database
             return default;
         }
 
-        public IList<User> GetAllRows()
+        public IList<User> GetAllRows(string value = null)
         {
             IList<User> userList = null;
             string query = "SELECT * FROM [dbo].[User]";
@@ -111,12 +111,23 @@ namespace Bloggo.Services.Database
         
         public void EditRow(string primaryKey, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[User] SET {columnName}='{value}' WHERE UserName={primaryKey}";
+            string sql = $"UPDATE [dbo].[User] SET {columnName}='{value}' WHERE UserName='{primaryKey}'";
             
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
             cmd.ExecuteNonQuery();
             
+            cmd.Dispose();
+
+        }
+
+        public void DeleteRow(string primaryKey)
+        {
+            string sql = $"DELETE [dbo].[User] WHERE UserName='{primaryKey}'";
+
+            SqlCommand cmd = new SqlCommand(sql, Connection);
+
+            cmd.ExecuteNonQuery();
             cmd.Dispose();
 
         }

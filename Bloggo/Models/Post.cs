@@ -1,3 +1,5 @@
+using System;
+
 namespace Bloggo.Models 
 {
     public class Post
@@ -12,7 +14,7 @@ namespace Bloggo.Models
 
         public string Content { get; set; }
 
-        public string DatePosted { get; set; } // YYYY-MM-DD
+        public DateTime DatePosted { get; set; } // YYYY-MM-DD
 
         public int Reblogs { get; set; }
 

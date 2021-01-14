@@ -55,7 +55,7 @@ namespace Bloggo.Services.Database
             return profile;
         }
 
-        public IList<Profile> GetAllRows()
+        public IList<Profile> GetAllRows(string value = null)
         {
             //connection.Open();
 
@@ -117,6 +117,16 @@ namespace Bloggo.Services.Database
         {
             string sql = $"UPDATE [dbo].[Profile] SET {columnName}='{value}' WHERE UserName={primaryKey}";
             
+            SqlCommand cmd = new SqlCommand(sql, Connection);
+
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+        }
+
+        public void DeleteRow(string primaryKey)
+        {
+            string sql = $"DELETE [dbo].[Profile] WHERE UserName='{primaryKey}'";
+
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
             cmd.ExecuteNonQuery();

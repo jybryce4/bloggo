@@ -269,8 +269,8 @@ a, .btn-link {
 }
 
 #profile-sections {
-    margin-top: auto;
     margin-bottom: 70px;
+    position: sticky;
 }
 
 

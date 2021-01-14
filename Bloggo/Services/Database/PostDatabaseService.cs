@@ -41,7 +41,7 @@ namespace Bloggo.Services.Database
                     post.Title = reader["Title"].ToString();
                     post.Subtitle = reader["Subtitle"].ToString();
                     post.Content = reader["Content"].ToString();
-                    post.DatePosted = reader["DatePosted"].ToString();
+                    post.DatePosted = DateTime.Parse(reader["DatePosted"].ToString());
                     post.Reblogs = Convert.ToInt32(reader["Reblogs"].ToString());
                     post.Upvotes = Convert.ToInt32(reader["Upvotes"].ToString());
                 }
@@ -50,11 +50,21 @@ namespace Bloggo.Services.Database
             return post;
         }
 
-        public IList<Post> GetAllRows()
+        public IList<Post> GetAllRows(string username = null)
         {
             IList<Post> postList = new List<Post>();
+
+            string query = string.Empty;
+            if (username != null) 
+            {
+                query = $"SELECT * FROM [dbo].[Post] WHERE UserName='{username}'";
+            } 
+            else 
+            {
+                query = "SELECT * FROM [dbo].[Post]";
+            }
            
-            string query = "SELECT * FROM [dbo].[Post]";
+            
             SqlCommand cmd = new SqlCommand(query, Connection);
 
             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -68,7 +78,7 @@ namespace Bloggo.Services.Database
                     post.Title = reader["Title"].ToString();
                     post.Subtitle = reader["Subtitle"].ToString();
                     post.Content = reader["Content"].ToString();
-                    post.DatePosted = reader["DatePosted"].ToString();
+                    post.DatePosted = DateTime.Parse(reader["DatePosted"].ToString());
                     post.Reblogs = Convert.ToInt32(reader["Reblogs"].ToString());
                     post.Upvotes = Convert.ToInt32(reader["Upvotes"].ToString());
 
@@ -83,7 +93,7 @@ namespace Bloggo.Services.Database
         public void CreateRow(Post post)
         {
             string sql = "INSERT INTO [dbo].[Post] ([UserName], [Title], [Subtitle], [Content], [DatePosted], [Reblogs], [Upvotes])" 
-                        + $"VALUES (LOWER('{post.Username}'), '{post.Title}', '{post.Subtitle}', '{post.Content}', '{post.DatePosted}', '{post.Reblogs}', '{post.Upvotes}')";
+                        + $"VALUES (LOWER('{post.Username}'), '{post.Title}', '{post.Subtitle}', '{post.Content}', '{DateTime.Now}', '{post.Reblogs}', '{post.Upvotes}')";
 
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
@@ -93,8 +103,18 @@ namespace Bloggo.Services.Database
         }
         public void EditRow(string primaryKey, string columnName, string value)
         {
-            string sql = $"UPDATE [dbo].[Post] SET {columnName}='{value}' WHERE PostID={primaryKey}";
+            string sql = $"UPDATE [dbo].[Post] SET {columnName}='{value}' WHERE PostID={Convert.ToInt32(primaryKey)}";
             
+            SqlCommand cmd = new SqlCommand(sql, Connection);
+
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+        }
+
+        public void DeleteRow(string primaryKey)
+        {
+            string sql = $"DELETE [dbo].[Post] WHERE UserName='{primaryKey}'";
+
             SqlCommand cmd = new SqlCommand(sql, Connection);
 
             cmd.ExecuteNonQuery();

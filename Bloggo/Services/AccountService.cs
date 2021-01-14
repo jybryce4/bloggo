@@ -6,25 +6,24 @@ namespace Bloggo.Services
 {
     public static class AccountService
     {
-        // private static UserDatabaseService _userDatabaseService = new UserDatabaseService();
+        public static IDatabaseService<User, User> _userDatabaseService = new UserDatabaseService();
         
         public static bool loggedIn = false;
+
         public static User User { get; private set; }
 
-        // public AccountService(UserDatabaseService userDatabaseService)
-        // {
-        //     _userDatabaseService = userDatabaseService;
-        //     //_httpHandler = new HttpHandler(_userDatabaseService);
-        // }
 
         public static void Login(Login model, string passwordHash, IDatabaseService<User, User> db)
         {
-            //User = await _httpHandler.Post<User>("/account/authenticate", model);
             if (VerifyPassword(model.Password, passwordHash) && model != null)
             {
-                User = db.GetItem(model.Username);
+                _userDatabaseService = db;
+                User = _userDatabaseService.GetItem(model.Username);
+                
                 Console.WriteLine($"{User.Username} logged in.");
+               
                 loggedIn = true;
+
                 db.CloseConnection();
             }
             else 
@@ -38,6 +37,7 @@ namespace Bloggo.Services
         {
             User = null;
             loggedIn = false;
+            _userDatabaseService.CloseConnection();
         }
 
         private static bool VerifyPassword(string enteredPassword, string passwordHash)

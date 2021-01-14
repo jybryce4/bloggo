@@ -67,7 +67,7 @@
         return PostDB.GetItem(PostID).Content;
     }
 
-    public string GetDatePosted()
+    public DateTime GetDatePosted()
     {
         return PostDB.GetItem(PostID).DatePosted; // gonna have to figure out date format
     }
