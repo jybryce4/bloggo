@@ -33,7 +33,7 @@
 
 
 @code {
-    private IDatabaseService<Models.Post, Models.Post> db = new PostDatabaseService();
+    private IDatabaseService<Models.Post, Models.Post, int> db = new PostDatabaseService();
     IList<Models.Post> PostList()
     {
         IList<Models.Post> postList = db.GetAllRows();

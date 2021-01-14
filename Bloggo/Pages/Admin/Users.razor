@@ -41,7 +41,7 @@
 
 
 @code {
-    private IDatabaseService<Profile, User> db = new ProfileDatabaseService();
+    private IDatabaseService<Profile, User, string> db = new ProfileDatabaseService();
     IList<Profile> ProfileList()
     {
         IList<Profile> profileList = db.GetAllRows();

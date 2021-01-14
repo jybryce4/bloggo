@@ -5,7 +5,7 @@ using Bloggo.Models;
 
 namespace Bloggo.Services.Database
 {
-    public class PostDatabaseService : IDatabaseService<Post, Post>
+    public class PostDatabaseService : IDatabaseService<Post, Post, int>
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);
@@ -24,11 +24,11 @@ namespace Bloggo.Services.Database
             Connection.Close();
         }
 
-        public Post GetItem(string primaryKey)
+        public Post GetItem(int primaryKey)
         {
             Post post = new Post();
             string selectPost =
-                $"SELECT * FROM [dbo].[Post] WHERE PostID={Convert.ToInt32(primaryKey)}";
+                $"SELECT * FROM [dbo].[Post] WHERE PostID={primaryKey}";
             SqlCommand sql = new SqlCommand(selectPost, Connection);
 
             // reading the data back into the frontend

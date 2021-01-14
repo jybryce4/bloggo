@@ -6,9 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
-    <PackageReference Include="ConfigReader" Version="1.2.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.1" />
-    <PackageReference Include="SettingsReader" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

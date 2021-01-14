@@ -36,7 +36,7 @@
     Models.Post post = new Models.Post();
     User user = new User();
 
-    private IDatabaseService<Models.Post, Models.Post> PostDB = new PostDatabaseService();
+    private IDatabaseService<Models.Post, Models.Post, int> PostDB = new PostDatabaseService();
 
     void MakePost()
     {

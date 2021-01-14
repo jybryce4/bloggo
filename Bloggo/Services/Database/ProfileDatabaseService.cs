@@ -5,7 +5,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Bloggo.Services.Database
 {
-    public class ProfileDatabaseService : IDatabaseService<Profile, User>
+    public class ProfileDatabaseService : IDatabaseService<Profile, User, string>
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         SqlConnection Connection = new SqlConnection(ConnectionString);

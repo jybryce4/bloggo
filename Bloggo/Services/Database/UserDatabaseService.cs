@@ -7,7 +7,7 @@ using Bloggo.Helpers;
 
 namespace Bloggo.Services.Database
 {
-    public class UserDatabaseService : IDatabaseService<User, User>
+    public class UserDatabaseService : IDatabaseService<User, User, string>
     {
         static string ConnectionString = Environment.GetEnvironmentVariable("BLOGGO_DB");
         

@@ -6,14 +6,14 @@ namespace Bloggo.Services
 {
     public static class AccountService
     {
-        public static IDatabaseService<User, User> _userDatabaseService = new UserDatabaseService();
+        public static IDatabaseService<User, User, string> _userDatabaseService = new UserDatabaseService();
         
         public static bool loggedIn = false;
 
         public static User User { get; private set; }
 
 
-        public static void Login(Login model, string passwordHash, IDatabaseService<User, User> db)
+        public static void Login(Login model, string passwordHash, IDatabaseService<User, User, string> db)
         {
             if (VerifyPassword(model.Password, passwordHash) && model != null)
             {

@@ -1,4 +1,4 @@
-@page "/users/{Username}/posts/{PostID}"
+@page "/users/{Username}/posts/{PostID:int}"
 
 <div class="container-fluid">
     <div class="post">
@@ -45,11 +45,11 @@
     public string Username { get; set; }
 
     [Parameter]
-    public string PostID { get; set; }
+    public int PostID { get; set; }
 
-    private IDatabaseService<Profile, User> ProfileDB = new ProfileDatabaseService();
-    private IDatabaseService<User, User> UserDB = new UserDatabaseService();
-    private IDatabaseService<Models.Post, Models.Post> PostDB = new PostDatabaseService();
+    private IDatabaseService<Profile, User, string> ProfileDB = new ProfileDatabaseService();
+    private IDatabaseService<User, User, string> UserDB = new UserDatabaseService();
+    private IDatabaseService<Models.Post, Models.Post, int> PostDB = new PostDatabaseService();
 
     public string GetPostTitle()
     {

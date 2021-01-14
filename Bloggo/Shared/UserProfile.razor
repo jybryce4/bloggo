@@ -24,7 +24,7 @@
             <h3 class="text-center">Latest Posts</h3>
             @foreach (var post in UserPostList().Reverse())
             {
-                <Post Username=@post.Username PostID=@post.PostID.ToString()/>
+                <UserPost Username=@post.Username PostID=@post.PostID />
             }
         </div>
 
@@ -72,9 +72,9 @@
     [Parameter]
     public string Username { get; set; }
 
-    private IDatabaseService<Profile, User> db = new ProfileDatabaseService();
+    private IDatabaseService<Profile, User, string> db = new ProfileDatabaseService();
     
-    private IDatabaseService<Models.Post, Models.Post> PostDB = new PostDatabaseService();
+    private IDatabaseService<Models.Post, Models.Post, int> PostDB = new PostDatabaseService();
 
 
     public string ProfileUrl()
